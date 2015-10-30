@@ -8,6 +8,7 @@ Module ViewInjection -- an lightly automatic view injection library of android
   3.edit your app module with build.gradle like this:
 
   dependencies{
+  dependencies {
       //-----add library module like this-----
       compile project(':viewinjection')
       //--------------------------------------
