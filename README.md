@@ -4,14 +4,19 @@ The open-source project of Maizi-studio
 Module ViewInjection -- an lightly automatic view injection library of android
 
   1.download the source-bundle at right of the webpage.
+
   2.import this library into your gradle project.
+
   3.edit your app module with build.gradle like this:
 
   dependencies {
+
       //-----add library module like this-----
+
       compile project(':viewinjection')
-      //--------------------------------------
       
+      //--------------------------------------
+
   4.edit your subclass of Activity like this:
   public class MainActivity extends Activity {
 
