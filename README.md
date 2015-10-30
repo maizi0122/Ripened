@@ -11,7 +11,7 @@ Module ViewInjection -- an lightly automatic view injection library of android
       //-----add library module like this-----
       compile project(':viewinjection')
       //--------------------------------------
-            
+      
   4.edit your subclass of Activity like this:
   public class MainActivity extends Activity {
 
