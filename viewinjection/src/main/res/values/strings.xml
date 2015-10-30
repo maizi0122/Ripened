@@ -1,0 +1,5 @@
+<resources>
+    <string name="illegal_id" formatted="false">can not find the view by id: %s annotation(ResId):#0x %s .please check your code...</string>
+    <string name="illegal_filed" formatted="false">Field: %s was not a subclass of view,please check your code...</string>
+    <string name="cast_exception" formatted="false">Field: %s : %s</string>
+</resources>
