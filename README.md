@@ -1,7 +1,7 @@
 # Maizi-Android
 The open-source project of Maizi-studio
 
-Module ViewInjection -- an lightly automatic view injection library of android
+Module ViewInjection -- an lightly automatic view injection library of android(it is a beginning project...)
 
   1.download the source-bundle at right of the webpage.
 
@@ -12,9 +12,7 @@ Module ViewInjection -- an lightly automatic view injection library of android
   dependencies {
 
       //-----add library module like this-----
-
       compile project(':viewinjection')
-      
       //--------------------------------------
 
   4.edit your subclass of Activity like this:
@@ -32,5 +30,6 @@ Module ViewInjection -- an lightly automatic view injection library of android
           setContentView(R.layout.activity_main);
           //--invoke auto view injection like this--
           new ViewInjection().initView(this);
+          //why not static-method? it will be product by the bean-factory of maizi-studio open source project at soon.like spring...
 
   5.enjoy your coding-time...
