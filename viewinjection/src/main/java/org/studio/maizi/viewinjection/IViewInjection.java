@@ -31,7 +31,7 @@ package org.studio.maizi.viewinjection;
 import android.app.Activity;
 
 /**
- * <p>the interface of auto view injection<br />
+ * the interface of auto view injection<br />
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
  * Created on 15-10-30.

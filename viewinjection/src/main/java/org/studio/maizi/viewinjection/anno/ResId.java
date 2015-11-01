@@ -34,7 +34,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * annotation of auto view-injection<br />
+ * annotation of auto view-injection.<br />
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
  * Created on 15-10-30.
