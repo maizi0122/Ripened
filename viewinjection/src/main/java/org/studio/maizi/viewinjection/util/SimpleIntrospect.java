@@ -37,7 +37,7 @@ import java.util.Arrays;
  * <pre>such as:
  * public class A{
  *     private Xxx abc;
- * <p/>
+ *
  *     public void setAbc(Xxx abc){
  *         this.abc = abc;
  *     }
@@ -45,9 +45,9 @@ import java.util.Arrays;
  *     public interface Xxx{
  *         return-type fun(params...);
  *     }
- * <p/>
+ *
  *     private Yyy def;
- * <p/>
+ *
  *     public void addDef(Yyy def){
  *         this.def = def;
  *     }
@@ -63,6 +63,7 @@ import java.util.Arrays;
  * Design by maizi.<br />
  * Created on 15-11-3.
  */
+@SuppressWarnings("all")
 public class SimpleIntrospect {
 
     /**
@@ -70,7 +71,7 @@ public class SimpleIntrospect {
      * runtime of this module,it will get the set method's name of an interface which has only one method.
      *
      * @param cls the class object.
-     * @return    the method name of "setXxx"
+     * @return the method name of "setXxx"
      */
     public static String getSetMethodName(Class<?> cls) {
         return getMethodName(cls, "set");
@@ -81,7 +82,7 @@ public class SimpleIntrospect {
      * runtime of this module,it will get the set method's name of an interface which has more than one method.
      *
      * @param cls the class object.
-     * @return    the method name of "addYyy"
+     * @return the method name of "addYyy"
      */
     public static String getAddMethodName(Class<?> cls) {
         return getMethodName(cls, "add");
@@ -90,7 +91,7 @@ public class SimpleIntrospect {
     /**
      * @param cls    the class object.
      * @param prefix the prefix of 'set-method'
-     * @return       the method name of 'set-method'
+     * @return the method name of 'set-method'
      */
     private static String getMethodName(Class<?> cls, String prefix) {
         if (cls == null)
@@ -100,6 +101,6 @@ public class SimpleIntrospect {
         if (suffix[0] >= 97 & suffix[0] < 122) {
             suffix[0] = Character.toUpperCase(suffix[0]);
         }
-        return prefix + Arrays.toString(suffix);
+        return new StringBuilder(prefix).append(suffix).toString();
     }
 }
