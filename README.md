@@ -89,8 +89,6 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
 
       we have many ways to bind the listener.example below:
 
-      edit your subclass of Activity like this:
-
       **********************************************************************************************
 
       public class CustomOnClickListener1 implements View.OnClickListener {
@@ -118,7 +116,9 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
           }
       }
 
-      **********************************************************************************************
+      ************************************Activity like this****************************************
+
+      edit your subclass of Activity like this:
 
       public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -238,6 +238,8 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
               ft.commit();
           }
       }
+
+      edit your subclass of Fragment like this:
 
       public class Fragment_Maizi extends android.app.Fragment implements View.OnClickListener {
 
