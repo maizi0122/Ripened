@@ -30,7 +30,6 @@ package org.studio.maizi.viewinjection.impl;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.res.Resources;
 import android.view.View;
 
 import org.studio.maizi.viewinjection.IEventBinder;
