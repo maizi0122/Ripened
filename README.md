@@ -1,7 +1,7 @@
 # Maizi-Android
 The open-source project of Maizi-studio
 
-Module ViewInjection -- an lightly automatic view injection and smart listener binding library of android(it is a beginning project...)
+Module ViewInjection -- a lightly automatic view injection and smart listener binding library of android(it is a beginning project...)
 
   1.download the source-bundle at right of the webpage.
 
@@ -88,8 +88,6 @@ Module ViewInjection -- an lightly automatic view injection and smart listener b
       In fact, we are not force you to use auto-event binding, you can bind the listener all by yourself.
 
       we have many ways to bind the listener.example below:
-
-      (1)let your activity of fragment implements the listener callback
 
       edit your subclass of Activity like this:
 
