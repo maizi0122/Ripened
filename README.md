@@ -54,6 +54,35 @@ Module ViewInjection -- an lightly automatic view injection and smart listener b
 
   4.2 function of smart listener binding.
 
+      if you abide by the rule of naming the set-method for one field of your class, which follows with the rule of android-source project.<br />
+      when your field's type is an interface which have only one method, your set-method should be named like setXxxYyy<br />
+      when your field's type is an interface which have more than one method, your set-method should be named like addXxxYyy<br />
+      such as:
+      public class A{
+          private Xxx abc;
+
+          public void setAbc(Xxx abc){
+                this.abc = abc;
+            }
+          //the interface which has only one function(),it's "set-method" start with "set"
+          public interface Xxx{
+                return-type fun(params...);
+          }
+
+          private Yyy def;
+
+          public void addDef(Yyy def){
+                this.def = def;
+          }
+          //the interface which has more than one function(),it's "set-method" start with "add"
+          public interface Yyy{
+                return-type fun1(params...);
+                return-type fun2(params...);
+                .
+                .
+          }
+      }
+
       if you setup this object, we can help you bind the listener smartly.
 
       In fact, we are not force you to use auto-event binding, you can bind the listener all by yourself.
@@ -63,59 +92,6 @@ Module ViewInjection -- an lightly automatic view injection and smart listener b
       (1)let your activity of fragment implements the listener callback
 
       edit your subclass of Activity like this:
-
-      **********************************************************************************************
-
-      public class MainActivity extends Activity implements View.OnClickListener {
-
-          //--define your view field like this--
-          @ResId(id = R.id.ac_main_bt1)
-          @RegistListener(listeners = {MainActivity.class})
-          private Button ac_main_bt1;
-          //--and add annotation ResId and RegistListener like this--
-
-          @Override
-          protected void onCreate(Bundle savedInstanceState) {
-              super.onCreate(savedInstanceState);
-
-              setContentView(R.layout.activity_main);
-              //--invoke auto view injection like this--
-              new ViewInjection(new EventBinder()).initView(this);
-          }
-
-          @Override
-          @EventTarget(targets = {R.id.ac_main_bt1})
-          public void onClick(View v) {
-              Toast.makeText(this, "方式一被点击了.....", Toast.LENGTH_SHORT).show();
-          }
-      }
-
-      **********************************************************************************************
-
-      public class MainActivity extends Activity {
-
-         @ResId(id = R.id.ac_main_bt2)
-         @RegistListener(listeners = {MyOnClickListener2.class})
-         private Button ac_main_bt2;
-
-          @Override
-          protected void onCreate(Bundle savedInstanceState) {
-              super.onCreate(savedInstanceState);
-
-              setContentView(R.layout.activity_main);
-              //--invoke auto view injection like this--
-              new ViewInjection(new EventBinder()).initView(this);
-          }
-
-          private class MyOnClickListener2 implements View.OnClickListener {
-
-              @Override
-              @EventTarget(targets = {R.id.ac_main_bt2})
-              public void onClick(View v) {
-                  Toast.makeText(MainActivity.this, "方式二被点击了.....", Toast.LENGTH_SHORT).show();
-              }
-          }
-      }
 
       **********************************************************************************************
 
@@ -146,11 +122,40 @@ Module ViewInjection -- an lightly automatic view injection and smart listener b
 
       **********************************************************************************************
 
-      public class MainActivity extends Activity {
+      public class MainActivity extends Activity implements View.OnClickListener {
+
+          //--define your view field like this--
+          @ResId(id = R.id.ac_main_bt1)
+          @RegistListener(listeners = {MainActivity.class})
+          private Button ac_main_bt1;
+          //--and add annotation ResId like this--
+
+          @ResId(id = R.id.ac_main_bt2)
+          @RegistListener(listeners = {MyOnClickListener2.class})
+          private Button ac_main_bt2;
 
           @ResId(id = R.id.ac_main_bt3)
           @RegistListener(listeners = {MyOnClickListener3.class})
           private Button ac_main_bt3;
+
+          @ResId(id = R.id.ac_main_bt4)
+          @RegistListener(listeners = {MyOnClickListener4.class})
+          private Button ac_main_bt4;
+
+          @ResId(id = R.id.ac_main_bt5)
+          @RegistListener(listeners = {CustomOnClickListener1.class})
+          private Button ac_main_bt5;
+
+          @ResId(id = R.id.ac_main_bt6)
+          @RegistListener(listeners = {CustomOnClickListener2.class})
+          private Button ac_main_bt6;
+
+          @ResId(id = R.id.ac_main_bt7)
+          private Button ac_main_bt7;
+
+          @ResId(id = R.id.maizi_contaniner)
+          private RelativeLayout maizi_contaniner;
+
 
           @Override
           protected void onCreate(Bundle savedInstanceState) {
@@ -158,7 +163,34 @@ Module ViewInjection -- an lightly automatic view injection and smart listener b
 
               setContentView(R.layout.activity_main);
               //--invoke auto view injection like this--
-              new ViewInjection(new EventBinder()).initView(this);
+              new ViewInjection(new EventBinder()).initView(this, new MyOnClickListener4("方式四被点击了....."), new CustomOnClickListener2("方式六被点击了....."));
+
+              ac_main_bt7.setOnClickListener(new View.OnClickListener() {
+                  @Override
+                  public void onClick(View v) {
+                      Toast.makeText(MainActivity.this, "方式七被点击了.....", Toast.LENGTH_SHORT).show();
+                  }
+              });
+
+              FragmentManager fragmentManager = getFragmentManager();
+              FragmentTransaction ft = fragmentManager.beginTransaction();
+              ft.replace(R.id.maizi_contaniner, new Fragment_Maizi());
+              ft.commit();
+          }
+
+          @Override
+          @EventTarget(targets = {R.id.ac_main_bt1})
+          public void onClick(View v) {
+              Toast.makeText(this, "方式一被点击了.....", Toast.LENGTH_SHORT).show();
+          }
+
+          private class MyOnClickListener2 implements View.OnClickListener {
+
+              @Override
+              @EventTarget(targets = {R.id.ac_main_bt2})
+              public void onClick(View v) {
+                  Toast.makeText(MainActivity.this, "方式二被点击了.....", Toast.LENGTH_SHORT).show();
+              }
           }
 
           private class MyOnClickListener3 extends CustomOnClickListener1 {
@@ -168,24 +200,6 @@ Module ViewInjection -- an lightly automatic view injection and smart listener b
               public void onClick(View v) {
                   Toast.makeText(MainActivity.this, "方式三被点击了.....", Toast.LENGTH_SHORT).show();
               }
-          }
-      }
-
-      **********************************************************************************************
-
-      public class MainActivity extends Activity {
-
-          @ResId(id = R.id.ac_main_bt4)
-          @RegistListener(listeners = {MyOnClickListener4.class})
-          private Button ac_main_bt4;
-
-          @Override
-          protected void onCreate(Bundle savedInstanceState) {
-              super.onCreate(savedInstanceState);
-
-              setContentView(R.layout.activity_main);
-              //--invoke auto view injection like this--
-              new ViewInjection(new EventBinder()).initView(this, new MyOnClickListener4("方式四被点击了.....");
           }
 
           private class MyOnClickListener4 implements View.OnClickListener {
@@ -202,66 +216,7 @@ Module ViewInjection -- an lightly automatic view injection and smart listener b
                   Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
               }
           }
-      }
 
-      **********************************************************************************************
-
-      public class MainActivity extends Activity {
-
-          @ResId(id = R.id.ac_main_bt5)
-          @RegistListener(listeners = {CustomOnClickListener1.class})
-          private Button ac_main_bt5;
-
-          @Override
-          protected void onCreate(Bundle savedInstanceState) {
-              super.onCreate(savedInstanceState);
-
-              setContentView(R.layout.activity_main);
-              //--invoke auto view injection like this--
-              new ViewInjection(new EventBinder()).initView(this);
-          }
-      }
-
-      **********************************************************************************************
-
-      public class MainActivity extends Activity {
-
-          @ResId(id = R.id.ac_main_bt6)
-          @RegistListener(listeners = {CustomOnClickListener2.class})
-          private Button ac_main_bt6;
-
-          @Override
-          protected void onCreate(Bundle savedInstanceState) {
-              super.onCreate(savedInstanceState);
-
-              setContentView(R.layout.activity_main);
-              //--invoke auto view injection like this--
-              new ViewInjection(new EventBinder()).initView(this, new CustomOnClickListener2("方式六被点击了....."));
-          }
-      }
-
-      **********************************************************************************************
-
-      public class MainActivity extends Activity {
-
-          @ResId(id = R.id.ac_main_bt7)
-          private Button ac_main_bt7;
-
-          @Override
-          protected void onCreate(Bundle savedInstanceState) {
-              super.onCreate(savedInstanceState);
-
-              setContentView(R.layout.activity_main);
-              //--invoke auto view injection like this--
-              new ViewInjection().initView(this);
-              //you can also bind by yourself...
-              ac_main_bt7.setOnClickListener(new View.OnClickListener() {
-                      @Override
-                      public void onClick(View v) {
-                          Toast.makeText(MainActivity.this, "方式七被点击了.....", Toast.LENGTH_SHORT).show();
-                      }
-              });
-          }
       }
 
       **************************************fragment like this**************************************
