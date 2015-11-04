@@ -151,10 +151,6 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
           @ResId(id = R.id.ac_main_bt7)
           private Button ac_main_bt7;
 
-          @ResId(id = R.id.maizi_contaniner)
-          private RelativeLayout maizi_contaniner;
-
-
           @Override
           protected void onCreate(Bundle savedInstanceState) {
               super.onCreate(savedInstanceState);
@@ -170,10 +166,6 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
                   }
               });
 
-              FragmentManager fragmentManager = getFragmentManager();
-              FragmentTransaction ft = fragmentManager.beginTransaction();
-              ft.replace(R.id.maizi_contaniner, new Fragment_Maizi());
-              ft.commit();
           }
 
           @Override
