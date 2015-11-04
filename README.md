@@ -1,9 +1,9 @@
 # Maizi-Android
-The open-source project of Maizi-studio
+The open-source project of Maizi-Studio
 
 Module ViewInjection -- a lightly automatic view injection and smart listener binding library of android(it is a beginning project...)
 
-  1.download the source-bundle at right of the webpage.
+  1.download the source-bundle at the right of the webpage.
 
   2.import this library into your gradle project.
 

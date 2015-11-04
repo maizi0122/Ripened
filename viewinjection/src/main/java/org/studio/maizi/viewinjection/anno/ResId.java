@@ -4,7 +4,7 @@
  * $Date: 2015-10-18 09:05:31 -0000 (Sun, 18 Oct 2015) $
  *
  * ====================================================================
- * Copyright (C) 2011 The Maizi-Studio Open Source Project
+ * Copyright (C) 2015 The Maizi-Studio Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
