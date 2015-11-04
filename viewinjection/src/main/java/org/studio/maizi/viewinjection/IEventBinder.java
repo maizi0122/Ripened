@@ -28,31 +28,24 @@
 
 package org.studio.maizi.viewinjection;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.view.View;
+import java.lang.reflect.Field;
 
 /**
- * the interface of auto view injection<br />
+ * the interface of auto event binding.
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
- * Created on 15-10-30.
+ * Created on 15-11-3.
  */
-public interface IViewInjection {
+public interface IEventBinder {
     /**
-     * init views automatic in an activity.
+     * auto event binding.<br />
+     * if you setup this object, we can help you bind the listener smartly.<br />
+     * In fact, we are not force you to use auto-event binding, you can bind the listener all by yourself.<br />
      *
-     * @param context  current context which relate to an instance of window
-     * @param listener additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...
+     * @param field the field which is an instance of view current scanning.
+     * @param resId the resId of this view.
+     * @param obj   may be it is current context, or it is a fragment of an activity.
+     * @param objs  additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...
      */
-    void initView(Activity context, Object... listener);
-
-    /**
-     * init views automatic in an fragment.
-     *
-     * @param fragment the fragment object.
-     * @param root     the root view in your fragment.
-     * @param listener additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...
-     */
-    void initView(Fragment fragment, View root, Object... listener);
+    void bindEvent(Field field, int resId, Object obj, Object... objs);
 }

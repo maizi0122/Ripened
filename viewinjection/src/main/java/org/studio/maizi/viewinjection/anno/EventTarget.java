@@ -26,33 +26,26 @@
  * maizi0122@gmail.com
  */
 
-package org.studio.maizi.viewinjection;
+package org.studio.maizi.viewinjection.anno;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.view.View;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * the interface of auto view injection<br />
+ * indicate all the view those listening this event.
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
- * Created on 15-10-30.
+ * Created on 15-11-3.
  */
-public interface IViewInjection {
+@SuppressWarnings("all")
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface EventTarget {
     /**
-     * init views automatic in an activity.
-     *
-     * @param context  current context which relate to an instance of window
-     * @param listener additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...
+     * indicate all the view those listening this event represent by these resId.
+     * @return
      */
-    void initView(Activity context, Object... listener);
-
-    /**
-     * init views automatic in an fragment.
-     *
-     * @param fragment the fragment object.
-     * @param root     the root view in your fragment.
-     * @param listener additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...
-     */
-    void initView(Fragment fragment, View root, Object... listener);
+    int[] targets();
 }

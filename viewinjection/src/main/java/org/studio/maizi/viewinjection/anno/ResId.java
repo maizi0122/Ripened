@@ -34,13 +34,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * annotation of auto view-injection.<br />
+ * indicate the resId which represent this 'view' field.
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
  * Created on 15-10-30.
  */
+@SuppressWarnings("all")
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface ResId {
+    /**
+     * indicate the resId which represent this 'view' field.
+     *
+     * @return
+     */
     int id();
 }

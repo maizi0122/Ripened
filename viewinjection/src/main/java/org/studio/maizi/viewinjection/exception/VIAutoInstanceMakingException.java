@@ -26,33 +26,13 @@
  * maizi0122@gmail.com
  */
 
-package org.studio.maizi.viewinjection;
-
-import android.app.Activity;
-import android.app.Fragment;
-import android.view.View;
+package org.studio.maizi.viewinjection.exception;
 
 /**
- * the interface of auto view injection<br />
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
- * Created on 15-10-30.
+ * Created on 15-11-4.
  */
-public interface IViewInjection {
-    /**
-     * init views automatic in an activity.
-     *
-     * @param context  current context which relate to an instance of window
-     * @param listener additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...
-     */
-    void initView(Activity context, Object... listener);
-
-    /**
-     * init views automatic in an fragment.
-     *
-     * @param fragment the fragment object.
-     * @param root     the root view in your fragment.
-     * @param listener additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...
-     */
-    void initView(Fragment fragment, View root, Object... listener);
+public class VIAutoInstanceMakingException extends RuntimeException {
+    public VIAutoInstanceMakingException(String detailMessage) { super(detailMessage); }
 }
