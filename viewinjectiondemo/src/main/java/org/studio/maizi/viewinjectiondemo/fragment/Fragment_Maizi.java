@@ -98,7 +98,7 @@ public class Fragment_Maizi extends android.app.Fragment implements View.OnClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.layout_fragment_1, container, false);
-        new ViewInjection(new EventBinder()).initView(this, root, new MyOnClickListener4("fragment\n...fourth way...\nhello maizi"), new CustomOnClickListener2("fragment\n...sixth way...\nhello maizi"));
+        new ViewInjection().initView(this, root, new MyOnClickListener4("fragment\n...fourth way...\nhello maizi"), new CustomOnClickListener2("fragment\n...sixth way...\nhello maizi"));
 
         ac_main_frag1_bt7.setOnClickListener(new View.OnClickListener() {
             @Override

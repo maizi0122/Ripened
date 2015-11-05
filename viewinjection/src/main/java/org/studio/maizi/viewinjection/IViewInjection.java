@@ -62,11 +62,18 @@ public interface IViewInjection {
     /**
      * init views automatic in a adapter.
      *
-     * @param adapter       this impl class of adapter.
-     * @param root          the root view of current item.
-     * @param holder        the holder object of your adapter view.
-     * @param listeners     additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...
+     * @param adapter   this impl class of adapter.
+     * @param root      the root view of current item.
+     * @param holder    the holder object of your adapter view.
+     * @param listeners additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...
      * @return current obj
      */
     IViewInjection initView(Adapter adapter, View root, Object holder, Object... listeners);
+
+    /**
+     * specify the object of listener binding
+     *
+     * @param eventBinder the object of listener binding
+     */
+    void setEventBinder(IEventBinder eventBinder);
 }

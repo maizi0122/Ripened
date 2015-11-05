@@ -86,7 +86,7 @@ public class CustomAdapter extends BaseAdapter implements View.OnLongClickListen
             itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.ac_sec_lv_item, parent, false);
             holder = new MyHolder();
             //-------------------------------------------------
-            new ViewInjection(new EventBinder()).initView(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been make instance auto,
+            new ViewInjection().initView(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been make instance auto,
             //-------------------------------------------------                         //because of annotation @Adapter(MyAdapter.class),we have helped you
             holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);       //setAdapter automatic with instance creating, if your Adapter class
             itemView.setTag(holder);                                                    //have no empty-param constructor,you should pass the instance in

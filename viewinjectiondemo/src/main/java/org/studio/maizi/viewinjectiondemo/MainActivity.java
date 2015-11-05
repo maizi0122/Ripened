@@ -87,7 +87,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
 
         //--invoke auto view injection like this--
-        new ViewInjection(new EventBinder()).initView(this, new MyOnClickListener4("...fourth way...\nhello maizi"), new CustomOnClickListener2("...sixth way...\nhello maizi"));
+        new ViewInjection().initView(this, new MyOnClickListener4("...fourth way...\nhello maizi"), new CustomOnClickListener2("...sixth way...\nhello maizi"));
 
         ac_main_bt7.setOnClickListener(new View.OnClickListener() {
             @Override

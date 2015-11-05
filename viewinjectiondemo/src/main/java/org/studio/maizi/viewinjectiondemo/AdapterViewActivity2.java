@@ -81,7 +81,7 @@ public class AdapterViewActivity2 extends Activity implements AdapterView.OnItem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //you adapter class have no empty-params constructor,you should make instance manually and pass it like : initView(this, new MyAdapter("maizi"));
-        viewInjection = new ViewInjection(new EventBinder()).initView(this, new MyAdapter("maizi"));
+        viewInjection = new ViewInjection().initView(this, new MyAdapter("maizi"));
 
     }
 

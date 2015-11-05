@@ -81,7 +81,7 @@ public class AdapterViewActivity1 extends Activity implements AdapterView.OnItem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //you adapter have no-params constructor,so if you config @Adapter(MyAdapter.class) at right place,we'll make instance automatic and inject it.
-        viewInjection = new ViewInjection(new EventBinder()).initView(this);
+        viewInjection = new ViewInjection().initView(this);
 
     }
 

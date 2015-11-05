@@ -37,6 +37,7 @@ import android.widget.AdapterView;
 import org.studio.maizi.viewinjection.IEventBinder;
 import org.studio.maizi.viewinjection.IViewInjection;
 import org.studio.maizi.viewinjection.anno.ContentView;
+import org.studio.maizi.viewinjection.anno.RegistListener;
 import org.studio.maizi.viewinjection.anno.ResId;
 import org.studio.maizi.viewinjection.exception.VIRuntimeException;
 import org.studio.maizi.viewinjection.util.StringFormatter;
@@ -73,13 +74,17 @@ public class ViewInjection implements IViewInjection {
     private IEventBinder eventBinder;
 
     public ViewInjection() {
-        this(null);
+        this(new EventBinder());
     }
 
     public ViewInjection(IEventBinder eventBinder) {
         this.eventBinder = eventBinder;
     }
 
+    @Override
+    public void setEventBinder(IEventBinder eventBinder) {
+        this.eventBinder = eventBinder;
+    }
 
     @Override
     public IViewInjection initView(Activity context, Object... listeners) {
@@ -174,9 +179,7 @@ public class ViewInjection implements IViewInjection {
                     field.set(obj, field.getType().cast(viewById));
                     org.studio.maizi.viewinjection.anno.Adapter annoAdpt = null;
                     if ((annoAdpt = field.getAnnotation(org.studio.maizi.viewinjection.anno.Adapter.class)) != null) {
-                        Class<? extends Adapter> cls = annoAdpt.value();
-                        System.out.println("");
-                        setAdapter(transfer, null, field, cls, listeners);
+                        setAdapter(transfer, null, field, annoAdpt.value(), listeners);
                     }
                 } catch (RuntimeException e) {
                     throw new VIRuntimeException(StringFormatter.format(CAST_EXCEPTION, field.toString(), e.getMessage()));
@@ -184,8 +187,9 @@ public class ViewInjection implements IViewInjection {
                     e.printStackTrace();
                 }
             }
-            if (resId != 0 && eventBinder != null) {
-                eventBinder.bindEvent(field, resId, obj, listeners);
+            RegistListener annoRegist = null;
+            if (resId != 0 && (annoRegist = field.getAnnotation(RegistListener.class)) != null && eventBinder != null) {
+                eventBinder.bindEvent(field, resId, obj, annoRegist, listeners);
             }
         }
     }

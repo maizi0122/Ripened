@@ -41,7 +41,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Formatter;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -61,31 +60,34 @@ public class EventBinder implements IEventBinder {
     private static final String INSTACE_ERROR = "Field : %s's RegistListener annotation param %s.class have no empty-params constructor or it is a illegal parameter, please check your code...";
     private static final String NO_MATCH_SET_METHOD = "class : %s have no matching 'set-method' either setXxx or addYyy, read comment in class->org.studio.maizi.viewinjection.util.SimpleIntrospect for detail...";
 
-    /** mark your listener's class match current view or not, if you pass the wrong class, we'll throw runtime-exception to prompt you */
+    /**
+     * mark your listener's class match current view or not, if you pass the wrong class, we'll throw runtime-exception to prompt you
+     */
     private boolean isFind;
 
-    /** the caching of mapping resId with all the interface it's listener implements on the view this resId represent */
+    /**
+     * the caching of mapping resId with all the interface it's listener implements on the view this resId represent
+     */
     private Map<Integer, List<Class<?>>> ID_INTERFACES_MAPPING = new HashMap<>();
-    /** the caching of mapping all the listener object pass from user manually with it's class object */
+    /**
+     * the caching of mapping all the listener object pass from user manually with it's class object
+     */
     private Map<Class<?>, Object> CLASS_OBJECT_MAPPING = new HashMap<>();
 
     @Override
-    public void bindEvent(Field field, int resId, Object obj, Object... listeners) {
+    public void bindEvent(Field field, int resId, Object obj, RegistListener anno, Object... listeners) {
         if (field == null) return;
         scanParams(listeners);//scan the listeners.
-        RegistListener anno = field.getAnnotation(RegistListener.class);
-        if (anno != null) {
-            Class<?>[] clazzs = anno.listeners();
-            for (Class<?> type : clazzs) {
-                isFind = false;
-                Class<?> impl = type;
-                do {
-                    Class<?>[] intrs = type.getInterfaces();
-                    scanIntr(field, resId, obj, impl, type, intrs, listeners);
-                } while ((type = type.getSuperclass()) != null);
-                if (!isFind)
-                    throw new VINoMatchListenerException(StringFormatter.format(NO_MATCH_LISTENER, field.getName(), impl.getSimpleName()));
-            }
+        Class<?>[] clazzs = anno.listeners();
+        for (Class<?> type : clazzs) {
+            isFind = false;
+            Class<?> impl = type;
+            do {
+                Class<?>[] intrs = type.getInterfaces();
+                scanIntr(field, resId, obj, impl, type, intrs, listeners);
+            } while ((type = type.getSuperclass()) != null);
+            if (!isFind)
+                throw new VINoMatchListenerException(StringFormatter.format(NO_MATCH_LISTENER, field.getName(), impl.getSimpleName()));
         }
     }
 
