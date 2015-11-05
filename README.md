@@ -45,9 +45,9 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
 
           public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
                   View root = inflater.inflate(R.layout.layout_fragment_1, container, false);
-                  //--invoke auto view injection like this--
+                  //--invoke auto view injection like this-
                   new ViewInjection().initView(this, root);
-                  //----------------------------------------
+                  //---------------------------------------
                   return root;
               }
       }
