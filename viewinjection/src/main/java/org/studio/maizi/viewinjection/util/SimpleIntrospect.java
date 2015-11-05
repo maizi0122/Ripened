@@ -30,8 +30,6 @@ package org.studio.maizi.viewinjection.util;
 
 import org.studio.maizi.viewinjection.exception.VIRuntimeException;
 
-import java.util.Arrays;
-
 /**
  * if you abide by the rule of naming the set-method for one field of your class, which follows with the rule of android-source project.<br />
  * when your field's type is an interface which have only one method, your set-method should be named like setXxxYyy<br />

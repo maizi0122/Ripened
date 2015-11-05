@@ -140,6 +140,4 @@ public class MainActivity extends Activity implements View.OnClickListener {
             Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
         }
     }
-
-
 }
