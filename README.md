@@ -108,7 +108,7 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
                       itemView = LayoutInflater.from(AdapterViewActivity1.this).inflate(R.layout.ac_sec_lv_item, parent, false);
                       holder = new MyHolder();
                       //-------------------------------------------------
-                      viewInjection.initView(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been make instance auto,
+                      viewInjection.initView(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been made instance automatic,
                       //-------------------------------------------------                         //because of annotation @Adapter(MyAdapter.class),we have helped you
                       holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);       //setAdapter automatic with instance creating, if your Adapter class
                       itemView.setTag(holder);                                                    //have no empty-param constructor,you should pass the instance in
@@ -240,7 +240,7 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
               super.onCreate(savedInstanceState);
 
               //--invoke auto view injection like this--
-              new ViewInjection(new EventBinder()).initView(this, new MyOnClickListener4("...fourth way...\nhello maizi"), new CustomOnClickListener2("...sixth way...\nhello maizi"));
+              new ViewInjection().initView(this, new MyOnClickListener4("...fourth way...\nhello maizi"), new CustomOnClickListener2("...sixth way...\nhello maizi"));
 
               ac_main_bt7.setOnClickListener(new View.OnClickListener() {
                   @Override
@@ -341,7 +341,7 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
           @Override
           public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
               View root = inflater.inflate(R.layout.layout_fragment_1, container, false);
-              new ViewInjection(new EventBinder()).initView(this, root, new MyOnClickListener4("fragment\n...fourth way...\nhello maizi"), new CustomOnClickListener2("fragment\n...sixth way...\nhello maizi"));
+              new ViewInjection().initView(this, root, new MyOnClickListener4("fragment\n...fourth way...\nhello maizi"), new CustomOnClickListener2("fragment\n...sixth way...\nhello maizi"));
 
               ac_main_frag1_bt7.setOnClickListener(new View.OnClickListener() {
                   @Override
@@ -429,7 +429,7 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
       protected void onCreate(Bundle savedInstanceState) {
           super.onCreate(savedInstanceState);
           //you adapter have no-params constructor,so if you config @Adapter(MyAdapter.class) at right place,we'll make instance automatic and inject it.
-          viewInjection = new ViewInjection(new EventBinder()).initView(this);
+          viewInjection = new ViewInjection().initView(this);
 
       }
 
