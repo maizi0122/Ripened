@@ -37,6 +37,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import org.studio.maizi.viewinjection.anno.ContentView;
 import org.studio.maizi.viewinjection.anno.EventTarget;
 import org.studio.maizi.viewinjection.anno.RegistListener;
 import org.studio.maizi.viewinjection.anno.ResId;
@@ -44,39 +45,40 @@ import org.studio.maizi.viewinjection.impl.EventBinder;
 import org.studio.maizi.viewinjection.impl.ViewInjection;
 import org.studio.maizi.viewinjectiondemo.fragment.Fragment_Maizi;
 
-
+@ContentView(R.layout.activity_main)
+@SuppressWarnings("all")
 public class MainActivity extends Activity implements View.OnClickListener {
 
     //--define your view field like this--
-    @ResId(id = R.id.ac_main_bt1)
+    @ResId(R.id.ac_main_bt1)
     @RegistListener(listeners = {MainActivity.class})
     private Button ac_main_bt1;
     //--and add annotation ResId like this--
 
-    @ResId(id = R.id.ac_main_bt2)
+    @ResId(R.id.ac_main_bt2)
     @RegistListener(listeners = {MyOnClickListener2.class})
     private Button ac_main_bt2;
 
-    @ResId(id = R.id.ac_main_bt3)
+    @ResId(R.id.ac_main_bt3)
     @RegistListener(listeners = {MyOnClickListener3.class})
     private Button ac_main_bt3;
 
-    @ResId(id = R.id.ac_main_bt4)
+    @ResId(R.id.ac_main_bt4)
     @RegistListener(listeners = {MyOnClickListener4.class})
     private Button ac_main_bt4;
 
-    @ResId(id = R.id.ac_main_bt5)
+    @ResId(R.id.ac_main_bt5)
     @RegistListener(listeners = {CustomOnClickListener1.class})
     private Button ac_main_bt5;
 
-    @ResId(id = R.id.ac_main_bt6)
+    @ResId(R.id.ac_main_bt6)
     @RegistListener(listeners = {CustomOnClickListener2.class})
     private Button ac_main_bt6;
 
-    @ResId(id = R.id.ac_main_bt7)
+    @ResId(R.id.ac_main_bt7)
     private Button ac_main_bt7;
 
-    @ResId(id = R.id.maizi_contaniner)
+    @ResId(R.id.maizi_contaniner)
     private RelativeLayout maizi_contaniner;
 
 
@@ -84,14 +86,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
         //--invoke auto view injection like this--
-        new ViewInjection(new EventBinder()).initView(this, new MyOnClickListener4("方式四被点击了....."), new CustomOnClickListener2("方式六被点击了....."));
+        new ViewInjection(new EventBinder()).initView(this, new MyOnClickListener4("...fourth way...\nhello maizi"), new CustomOnClickListener2("...sixth way...\nhello maizi"));
 
         ac_main_bt7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "方式七被点击了.....", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "...seventh way...\nhello maizi", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -104,7 +105,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     @EventTarget(targets = {R.id.ac_main_bt1})
     public void onClick(View v) {
-        Toast.makeText(this, "方式一被点击了.....", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "...first way...\nhello maizi", Toast.LENGTH_SHORT).show();
     }
 
     private class MyOnClickListener2 implements View.OnClickListener {
@@ -112,7 +113,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         @Override
         @EventTarget(targets = {R.id.ac_main_bt2})
         public void onClick(View v) {
-            Toast.makeText(MainActivity.this, "方式二被点击了.....", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "...second way...\nhello maizi", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -121,7 +122,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         @Override
         @EventTarget(targets = {R.id.ac_main_bt3})
         public void onClick(View v) {
-            Toast.makeText(MainActivity.this, "方式三被点击了.....", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "...third way...\nhello maizi", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -139,5 +140,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
             Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
         }
     }
+
 
 }

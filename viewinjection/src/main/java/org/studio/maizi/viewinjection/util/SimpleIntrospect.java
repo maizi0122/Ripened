@@ -28,6 +28,8 @@
 
 package org.studio.maizi.viewinjection.util;
 
+import org.studio.maizi.viewinjection.exception.VIRuntimeException;
+
 import java.util.Arrays;
 
 /**
@@ -66,6 +68,10 @@ import java.util.Arrays;
 @SuppressWarnings("all")
 public class SimpleIntrospect {
 
+    private static final String SET_PREFIX = "set";
+    private static final String ADD_PREFIX = "add";
+    private static final String NULL_CONTEXT = "params cls can not be null...";
+
     /**
      * get the set method's name of this property.<br />
      * runtime of this module,it will get the set method's name of an interface which has only one method.
@@ -74,7 +80,7 @@ public class SimpleIntrospect {
      * @return the method name of "setXxx"
      */
     public static String getSetMethodName(Class<?> cls) {
-        return getMethodName(cls, "set");
+        return getMethodName(cls, SET_PREFIX);
     }
 
     /**
@@ -85,7 +91,7 @@ public class SimpleIntrospect {
      * @return the method name of "addYyy"
      */
     public static String getAddMethodName(Class<?> cls) {
-        return getMethodName(cls, "add");
+        return getMethodName(cls, ADD_PREFIX);
     }
 
     /**
@@ -95,7 +101,7 @@ public class SimpleIntrospect {
      */
     private static String getMethodName(Class<?> cls, String prefix) {
         if (cls == null)
-            throw new RuntimeException("params cls can not be null...");
+            throw new VIRuntimeException(NULL_CONTEXT);
         String propertyName = cls.getSimpleName();
         char[] suffix = propertyName.toCharArray();
         if (suffix[0] >= 97 & suffix[0] < 122) {

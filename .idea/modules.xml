@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Maizi-Android.iml" filepath="$PROJECT_DIR$/Maizi-Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RapeField.iml" filepath="$PROJECT_DIR$/RapeField.iml" />
+      <module fileurl="file://$PROJECT_DIR$/viewinjection/viewinjection.iml" filepath="$PROJECT_DIR$/viewinjection/viewinjection.iml" />
+      <module fileurl="file://$PROJECT_DIR$/viewinjectiondemo/viewinjectiondemo.iml" filepath="$PROJECT_DIR$/viewinjectiondemo/viewinjectiondemo.iml" />
+    </modules>
+  </component>
+</project>

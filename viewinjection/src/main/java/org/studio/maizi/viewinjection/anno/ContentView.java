@@ -26,24 +26,20 @@
  *  maizi0122@gmail.com
  */
 
-package org.studio.maizi.viewinjectiondemo;
+package org.studio.maizi.viewinjection.anno;
 
-import android.view.View;
-import android.widget.Toast;
-
-import org.studio.maizi.viewinjection.anno.EventTarget;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
- * Created on 15-11-4.
+ * Created on 15-11-5.
  */
-public class CustomOnClickListener1 implements View.OnClickListener {
-
-    @Override
-    @EventTarget(targets = {R.id.ac_main_bt5,R.id.ac_main_frag1_bt5})
-    public void onClick(View v) {
-        Toast.makeText(v.getContext(), "...fifth way...\nhello maizi", Toast.LENGTH_SHORT).show();
-    }
-
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface ContentView {
+    int value();
 }

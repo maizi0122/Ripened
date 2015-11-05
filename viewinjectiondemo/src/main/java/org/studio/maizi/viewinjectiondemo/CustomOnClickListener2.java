@@ -49,6 +49,6 @@ public class CustomOnClickListener2 implements View.OnClickListener {
     @Override
     @EventTarget(targets = {R.id.ac_main_bt6, R.id.ac_main_frag1_bt6})
     public void onClick(View v) {
-        Toast.makeText(v.getContext(), "方式六被点击了.....", Toast.LENGTH_SHORT).show();
+        Toast.makeText(v.getContext(), text, Toast.LENGTH_SHORT).show();
     }
 }

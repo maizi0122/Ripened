@@ -35,6 +35,7 @@ import org.studio.maizi.viewinjection.exception.VIAutoInstanceMakingException;
 import org.studio.maizi.viewinjection.exception.VINoMatchListenerException;
 import org.studio.maizi.viewinjection.exception.VIRuntimeException;
 import org.studio.maizi.viewinjection.util.SimpleIntrospect;
+import org.studio.maizi.viewinjection.util.StringFormatter;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -48,7 +49,7 @@ import java.util.Map;
 
 /**
  * an implementation of IEventBinder.<br />
- * attention: see--->{@link SimpleIntrospect}<br />
+ * attention: see--->{@link org.studio.maizi.viewinjection.util.SimpleIntrospect}<br />
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
  * Created on 15-11-3.
@@ -56,9 +57,9 @@ import java.util.Map;
 @SuppressWarnings("all")
 public class EventBinder implements IEventBinder {
 
-    public static final String NO_MATCH_LISTENER = "%s have no matching listener on class %s";
-    public static final String INSTACE_ERROR = "Field : %s's RegistListener annotation param %s.class have no empty-params constructor or it is a illegal parameter, please check your code...";
-    public static final String NO_MATCH_SET_METHOD = "class : %s have no matching 'set-method' either setXxx or addYyy, read comment in class->org.studio.maizi.viewinjection.util.SimpleIntrospect for detail...";
+    private static final String NO_MATCH_LISTENER = "%s have no matching listener on class %s";
+    private static final String INSTACE_ERROR = "Field : %s's RegistListener annotation param %s.class have no empty-params constructor or it is a illegal parameter, please check your code...";
+    private static final String NO_MATCH_SET_METHOD = "class : %s have no matching 'set-method' either setXxx or addYyy, read comment in class->org.studio.maizi.viewinjection.util.SimpleIntrospect for detail...";
 
     /** mark your listener's class match current view or not, if you pass the wrong class, we'll throw runtime-exception to prompt you */
     private boolean isFind;
@@ -83,7 +84,7 @@ public class EventBinder implements IEventBinder {
                     scanIntr(field, resId, obj, impl, type, intrs, listeners);
                 } while ((type = type.getSuperclass()) != null);
                 if (!isFind)
-                    throw new VINoMatchListenerException(new Formatter().format(NO_MATCH_LISTENER, field.getName(), impl.getSimpleName()).toString());
+                    throw new VINoMatchListenerException(StringFormatter.format(NO_MATCH_LISTENER, field.getName(), impl.getSimpleName()));
             }
         }
     }
@@ -203,7 +204,7 @@ public class EventBinder implements IEventBinder {
                 }
             }
             if (constructor == null)
-                throw new VIAutoInstanceMakingException(new Formatter().format(INSTACE_ERROR, field.toString(), clazz.getSimpleName()).toString());
+                throw new VIAutoInstanceMakingException(StringFormatter.format(INSTACE_ERROR, field.toString(), clazz.getSimpleName()));
             try {
                 if (paramsLen == 0)
                     impl = constructor.newInstance();
@@ -225,7 +226,7 @@ public class EventBinder implements IEventBinder {
         else if (attemptAddInject(cls, field, impl, constructor == null && obj == null ? null : obj))
             return true;
         else
-            throw new VIRuntimeException(new Formatter().format(NO_MATCH_SET_METHOD, field.getType().getName()).toString());
+            throw new VIRuntimeException(StringFormatter.format(NO_MATCH_SET_METHOD, field.getType().getName()));
     }
 
     /**

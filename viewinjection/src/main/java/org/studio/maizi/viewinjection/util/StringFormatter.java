@@ -26,24 +26,24 @@
  *  maizi0122@gmail.com
  */
 
-package org.studio.maizi.viewinjectiondemo;
+package org.studio.maizi.viewinjection.util;
 
-import android.view.View;
-import android.widget.Toast;
-
-import org.studio.maizi.viewinjection.anno.EventTarget;
+import java.util.Formatter;
 
 /**
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
- * Created on 15-11-4.
+ * Created on 15-11-5.
  */
-public class CustomOnClickListener1 implements View.OnClickListener {
+public class StringFormatter {
 
-    @Override
-    @EventTarget(targets = {R.id.ac_main_bt5,R.id.ac_main_frag1_bt5})
-    public void onClick(View v) {
-        Toast.makeText(v.getContext(), "...fifth way...\nhello maizi", Toast.LENGTH_SHORT).show();
+    /**
+     * a util for String formatting.
+     * @param str the string which will be format
+     * @param obj the object which match each place with it's turn.
+     * @return the string formatted
+     */
+    public static String format(String str, Object... obj) {
+        return new Formatter().format(str, obj).toString();
     }
-
 }

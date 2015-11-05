@@ -48,5 +48,5 @@ public @interface ResId {
      *
      * @return
      */
-    int id();
+    int value();
 }

@@ -44,6 +44,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AdapterViewActivity1" />
+        <activity android:name=".AdapterViewActivity2" />
+        <activity android:name=".AdapterViewActivity3" />
     </application>
 
 </manifest>

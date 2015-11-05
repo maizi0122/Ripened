@@ -36,4 +36,5 @@ package org.studio.maizi.viewinjection.util;
 public enum Type {
     Activity,
     Fragment,
+    Adapter,
 }

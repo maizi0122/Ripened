@@ -28,6 +28,7 @@
 
 package org.studio.maizi.viewinjectiondemo.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,9 @@ import org.studio.maizi.viewinjection.anno.RegistListener;
 import org.studio.maizi.viewinjection.anno.ResId;
 import org.studio.maizi.viewinjection.impl.EventBinder;
 import org.studio.maizi.viewinjection.impl.ViewInjection;
+import org.studio.maizi.viewinjectiondemo.AdapterViewActivity1;
+import org.studio.maizi.viewinjectiondemo.AdapterViewActivity2;
+import org.studio.maizi.viewinjectiondemo.AdapterViewActivity3;
 import org.studio.maizi.viewinjectiondemo.CustomOnClickListener1;
 import org.studio.maizi.viewinjectiondemo.CustomOnClickListener2;
 import org.studio.maizi.viewinjectiondemo.R;
@@ -49,53 +53,79 @@ import org.studio.maizi.viewinjectiondemo.R;
  * Design by maizi.<br />
  * Created on 15-11-4.
  */
+@SuppressWarnings("all")
 public class Fragment_Maizi extends android.app.Fragment implements View.OnClickListener {
 
-    @ResId(id = R.id.ac_main_frag1_bt1)
+    @ResId(R.id.ac_main_frag1_bt1)
     @RegistListener(listeners = {Fragment_Maizi.class})
     private Button ac_main_frag1_bt1;
 
-    @ResId(id = R.id.ac_main_frag1_bt2)
+    @ResId(R.id.ac_main_frag1_bt2)
     @RegistListener(listeners = {MyOnClickListener2.class})
     private Button ac_main_frag1_bt2;
 
-    @ResId(id = R.id.ac_main_frag1_bt3)
+    @ResId(R.id.ac_main_frag1_bt3)
     @RegistListener(listeners = {MyOnClickListener3.class})
     private Button ac_main_frag1_bt3;
 
-    @ResId(id = R.id.ac_main_frag1_bt4)
+    @ResId(R.id.ac_main_frag1_bt4)
     @RegistListener(listeners = {MyOnClickListener4.class})
     private Button ac_main_frag1_bt4;
 
-    @ResId(id = R.id.ac_main_frag1_bt5)
+    @ResId(R.id.ac_main_frag1_bt5)
     @RegistListener(listeners = {CustomOnClickListener1.class})
     private Button ac_main_frag1_bt5;
 
-    @ResId(id = R.id.ac_main_frag1_bt6)
+    @ResId(R.id.ac_main_frag1_bt6)
     @RegistListener(listeners = {CustomOnClickListener2.class})
     private Button ac_main_frag1_bt6;
 
-    @ResId(id = R.id.ac_main_frag1_bt7)
+    @ResId(R.id.ac_main_frag1_bt7)
     private Button ac_main_frag1_bt7;
+
+    @ResId(R.id.ac_main_frag1_bt8)
+    @RegistListener(listeners = {Fragment_Maizi.class})
+    private Button ac_main_frag1_bt8;
+
+    @ResId(R.id.ac_main_frag1_bt9)
+    @RegistListener(listeners = {Fragment_Maizi.class})
+    private Button ac_main_frag1_bt9;
+
+    @ResId(R.id.ac_main_frag1_bt10)
+    @RegistListener(listeners = {Fragment_Maizi.class})
+    private Button ac_main_frag1_bt10;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.layout_fragment_1, container, false);
-        new ViewInjection(new EventBinder()).initView(this, root, new MyOnClickListener4("方式四被点击了....."), new CustomOnClickListener2("方式六被点击了....."));
+        new ViewInjection(new EventBinder()).initView(this, root, new MyOnClickListener4("fragment\n...fourth way...\nhello maizi"), new CustomOnClickListener2("fragment\n...sixth way...\nhello maizi"));
 
         ac_main_frag1_bt7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Fragment_Maizi.this.getActivity(), "方式七被点击了.....", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Fragment_Maizi.this.getActivity(), "fragment\n...seventh way...\nhello maizi", Toast.LENGTH_SHORT).show();
             }
         });
         return root;
     }
 
     @Override
-    @EventTarget(targets = {R.id.ac_main_frag1_bt1})
+    @EventTarget(targets = {R.id.ac_main_frag1_bt1, R.id.ac_main_frag1_bt8, R.id.ac_main_frag1_bt9, R.id.ac_main_frag1_bt10})
     public void onClick(View v) {
-        Toast.makeText(this.getActivity(), "方式一被点击了.....", Toast.LENGTH_SHORT).show();
+        switch (v.getId()) {
+            case R.id.ac_main_frag1_bt1:
+                Toast.makeText(this.getActivity(), "fragment\n...first way...\nhello maizi", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.ac_main_frag1_bt8:
+                getActivity().startActivity(new Intent(getActivity(), AdapterViewActivity1.class));
+                break;
+            case R.id.ac_main_frag1_bt9:
+                getActivity().startActivity(new Intent(getActivity(), AdapterViewActivity2.class));
+                break;
+            case R.id.ac_main_frag1_bt10:
+                getActivity().startActivity(new Intent(getActivity(), AdapterViewActivity3.class));
+                break;
+        }
     }
 
     private class MyOnClickListener2 implements View.OnClickListener {
@@ -103,7 +133,7 @@ public class Fragment_Maizi extends android.app.Fragment implements View.OnClick
         @Override
         @EventTarget(targets = {R.id.ac_main_frag1_bt2})
         public void onClick(View v) {
-            Toast.makeText(Fragment_Maizi.this.getActivity(), "方式二被点击了.....", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Fragment_Maizi.this.getActivity(), "fragment\n...second way...\nhello maizi", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -112,7 +142,7 @@ public class Fragment_Maizi extends android.app.Fragment implements View.OnClick
         @Override
         @EventTarget(targets = {R.id.ac_main_frag1_bt3})
         public void onClick(View v) {
-            Toast.makeText(Fragment_Maizi.this.getActivity(), "方式三被点击了.....", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Fragment_Maizi.this.getActivity(), "fragment\n...third way...\nhello maizi", Toast.LENGTH_SHORT).show();
         }
     }
 
