@@ -1,1 +1,1 @@
-include ':viewinjection', ':viewinjectiondemo'
+include ':viewinjection', ':viewinjectiondemo', ':contentviewenhancer'

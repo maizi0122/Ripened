@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Maizi-Android.iml" filepath="$PROJECT_DIR$/Maizi-Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/RapeField.iml" filepath="$PROJECT_DIR$/RapeField.iml" />
+      <module fileurl="file://$PROJECT_DIR$/contentviewenhancer/contentviewenhancer.iml" filepath="$PROJECT_DIR$/contentviewenhancer/contentviewenhancer.iml" />
       <module fileurl="file://$PROJECT_DIR$/viewinjection/viewinjection.iml" filepath="$PROJECT_DIR$/viewinjection/viewinjection.iml" />
       <module fileurl="file://$PROJECT_DIR$/viewinjectiondemo/viewinjectiondemo.iml" filepath="$PROJECT_DIR$/viewinjectiondemo/viewinjectiondemo.iml" />
     </modules>
