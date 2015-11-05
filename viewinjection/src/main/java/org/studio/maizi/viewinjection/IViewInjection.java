@@ -75,5 +75,5 @@ public interface IViewInjection {
      *
      * @param eventBinder the object of listener binding
      */
-    void setEventBinder(IEventBinder eventBinder);
+    IViewInjection setEventBinder(IEventBinder eventBinder);
 }

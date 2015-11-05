@@ -82,8 +82,9 @@ public class ViewInjection implements IViewInjection {
     }
 
     @Override
-    public void setEventBinder(IEventBinder eventBinder) {
+    public ViewInjection setEventBinder(IEventBinder eventBinder) {
         this.eventBinder = eventBinder;
+        return this;
     }
 
     @Override
