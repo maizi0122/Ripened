@@ -25,25 +25,31 @@
  *  Any question contacting with email below:
  *  maizi0122@gmail.com
  */
-apply plugin: 'com.android.library'
-android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
 
-    defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+package org.studio.maizi.rapefield;
 
-dependencies {
-    compile project(':rapefield')
+import org.studio.maizi.rapefield.dto.ActionParams;
+
+/**
+ * the interface of plugin.
+ * Powered by Maizi-Studio.<br />
+ * Design by maizi.<br />
+ * Created on 15-11-5.
+ */
+public interface IPlugin {
+
+    /**
+     * get the name of this plugin.
+     *
+     * @return the name of this plugin.
+     */
+    String getName();
+
+    /**
+     * the plugin's action
+     *
+     * @param params the params of action
+     */
+    void action(ActionParams params);
+
 }

@@ -6,9 +6,9 @@
       <module fileurl="file://$PROJECT_DIR$/adapter_enhance/adapter_enhance.iml" filepath="$PROJECT_DIR$/adapter_enhance/adapter_enhance.iml" />
       <module fileurl="file://$PROJECT_DIR$/contentview_enhance/contentview_enhance.iml" filepath="$PROJECT_DIR$/contentview_enhance/contentview_enhance.iml" />
       <module fileurl="file://$PROJECT_DIR$/eventbinder_enhance/eventbinder_enhance.iml" filepath="$PROJECT_DIR$/eventbinder_enhance/eventbinder_enhance.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rapefield/rapefield.iml" filepath="$PROJECT_DIR$/rapefield/rapefield.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rapefield_demo/rapefield_demo.iml" filepath="$PROJECT_DIR$/rapefield_demo/rapefield_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/resourcebinder_enhance/resourcebinder_enhance.iml" filepath="$PROJECT_DIR$/resourcebinder_enhance/resourcebinder_enhance.iml" />
-      <module fileurl="file://$PROJECT_DIR$/viewinjection/viewinjection.iml" filepath="$PROJECT_DIR$/viewinjection/viewinjection.iml" />
-      <module fileurl="file://$PROJECT_DIR$/viewinjectiondemo/viewinjectiondemo.iml" filepath="$PROJECT_DIR$/viewinjectiondemo/viewinjectiondemo.iml" />
     </modules>
   </component>
 </project>

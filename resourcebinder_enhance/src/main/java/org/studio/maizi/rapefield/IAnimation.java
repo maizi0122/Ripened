@@ -25,25 +25,37 @@
  *  Any question contacting with email below:
  *  maizi0122@gmail.com
  */
-apply plugin: 'com.android.library'
-android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
 
-    defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+package org.studio.maizi.rapefield;
 
-dependencies {
-    compile project(':rapefield')
+import android.view.View;
+
+import java.lang.reflect.Field;
+
+/**
+ * the plugin of animation setting.
+ * Powered by Maizi-Studio.<br />
+ * Design by maizi.<br />
+ * Created on 15-11-6.
+ */
+public interface IAnimation extends IPlugin {
+
+    String NAME = "Animation";
+    String RES_ANIM_NAME = "anim";
+    String RES_INTERPOLATOR_NAME = "interpolator";
+
+    int a = 10;
+
+    /**
+     * set the animation to the specify view object.
+     *
+     * @param view         the object of view which need animation setting
+     * @param animResId    the resource id of animation
+     * @param duration     the duration of animation
+     * @param startOffset  the start offset of the animation
+     * @param interpolator the interpolator of the animation
+     * @param repeatCount  the repeatCount of the animation
+     * @param fillAfter    is fillAfter or not
+     */
+    void setAnimation(View view, int animResId, int duration, int startOffset, int interpolator, int repeatCount, boolean fillAfter, Field field);
 }

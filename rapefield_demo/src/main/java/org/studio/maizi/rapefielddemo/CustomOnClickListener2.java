@@ -25,25 +25,30 @@
  *  Any question contacting with email below:
  *  maizi0122@gmail.com
  */
-apply plugin: 'com.android.library'
-android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
 
-    defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+package org.studio.maizi.rapefielddemo;
 
-dependencies {
-    compile project(':rapefield')
+import android.view.View;
+import android.widget.Toast;
+
+import org.studio.maizi.rapefield.anno.EventTarget;
+
+/**
+ * Powered by Maizi-Studio.<br />
+ * Design by maizi.<br />
+ * Created on 15-11-4.
+ */
+public class CustomOnClickListener2 implements View.OnClickListener {
+
+    private String text;
+
+    public CustomOnClickListener2(String text) {
+        this.text = text;
+    }
+
+    @Override
+    @EventTarget(targets = {R.id.ac_main_bt6, R.id.ac_main_frag1_bt6})
+    public void onClick(View v) {
+        Toast.makeText(v.getContext(), text, Toast.LENGTH_SHORT).show();
+    }
 }

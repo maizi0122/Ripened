@@ -1,7 +1,11 @@
 # RapeField
 The open-source project of Maizi-Studio
 
-Module ViewInjection -- a lightly automatic view injection and smart listener binding library of android(it is a beginning project...)
+Module RapeField -- a lightly automatic view injection and smart listener、resources binding library of android(it is a beginning project...)
+  this project's main module is RapeField, modules: adapter_enhance、contentview_enhance、eventbinder_enhance、resourcebinder_enhance
+  are the plugin of RapeField, we are support free-choosing of composing, so you can add module with the function just you need.
+  it can minify your apk, we also support your customize plugin with implementation of IPlugin interface...
+  we do not dependent any other third-library except android.jar, so you can proguard it in any way...
 
   1.download the source-bundle at the right of the webpage.
 
@@ -12,7 +16,7 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
   dependencies {
 
       //-----add library module like this-----
-      compile project(':viewinjection')
+      compile project(':RapeField')
       //--------------------------------------
 
   4.1 function of auto view injection:
@@ -32,7 +36,7 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
 
               setContentView(R.layout.activity_main);
               //--invoke auto view injection like this--
-              new ViewInjection().initView(this);
+              new RapeField().inject(this);
               //why not static-method? it will be product by the bean-factory of maizi-studio open source project at soon.like spring...
           }
       }
@@ -46,7 +50,7 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
           public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
                   View root = inflater.inflate(R.layout.layout_fragment_1, container, false);
                   //--invoke auto view injection like this-
-                  new ViewInjection().initView(this, root);
+                  new RapeField().inject(this, root);
                   //---------------------------------------
                   return root;
               }
@@ -67,14 +71,14 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
           @Adapter(MyAdapter.class)
           private ListView ac_sec_lv;
 
-          private IViewInjection viewInjection;
+          private IRapeField RapeField;
 
           @Override
           protected void onCreate(Bundle savedInstanceState) {
               super.onCreate(savedInstanceState);
 
               //you adapter have no-params constructor,so if you config @Adapter(MyAdapter.class) at right place,we'll make instance automatic and inject it.
-              viewInjection = new ViewInjection().initView(this);
+              RapeField = new RapeField().inject(this);
 
           }
 
@@ -108,11 +112,11 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
                       itemView = LayoutInflater.from(AdapterViewActivity1.this).inflate(R.layout.ac_sec_lv_item, parent, false);
                       holder = new MyHolder();
                       //-------------------------------------------------
-                      viewInjection.initView(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been made instance automatic,
+                      RapeField.inject(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been made instance automatic,
                       //-------------------------------------------------                         //because of annotation @Adapter(MyAdapter.class),we have helped you
                       holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);       //setAdapter automatic with instance creating, if your Adapter class
                       itemView.setTag(holder);                                                    //have no empty-param constructor,you should pass the instance in
-                  }                                                                               //initView(Object... obj) manually,because we don't know what object
+                  }                                                                               //inject(Object... obj) manually,because we don't know what object
                   holder.ac_sec_lv_item_iv.setImageResource(R.mipmap.ic_launcher);                //in params to create instance...
                   holder.ac_sec_lv_item_tv.setText(list.get(position));
                   return itemView;
@@ -248,12 +252,16 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
               super.onCreate(savedInstanceState);
 
               //--invoke auto view injection like this--      you can choose which one or more plugin to use.
-              new ViewInjection().setVIContext(new VIContext().addPlugin(new ContentSetter(),
+              new RapeField().setVIContext(new VIContext().addPlugin(new ContentSetter(),
                                                                          new EventBinder(),
                                                                          new AnimationSetter()))
-                                 .initView(this,
+                                 .inject(this,
                                            new MyOnClickListener4("...fourth way...\nhello maizi"),
                                            new CustomOnClickListener2("...sixth way...\nhello maizi"));
+
+              //------replace upon, you can also code like this:       new RapeField().inject(this,
+              //------because we will scan automatic, but we                                  new MyOnClickListener4("...fourth way...\nhello maizi"),
+              //------also support your custom                                                new CustomOnClickListener2("...sixth way...\nhello maizi"));
 
               ac_main_bt7.setOnClickListener(new View.OnClickListener() {
                   @Override
@@ -359,9 +367,7 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
           @Override
           public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
               View root = inflater.inflate(R.layout.layout_fragment, container, false);
-              new ViewInjection().setVIContext(new VIContext().addPlugin(new EventBinder(),
-                                                                         new AnimationSetter()))
-                                 .initView(this, root,
+              new RapeField().inject(this, root,
                                            new MyOnClickListener4("fragment\n...fourth way...\nhello maizi"),
                                            new CustomOnClickListener2("fragment\n...sixth way...\nhello maizi"));
 
@@ -450,17 +456,17 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
           @Anim(duration = 1000,interpolator = android.R.interpolator.bounce)
           private RelativeLayout ac_ava1_root;
 
-          private IViewInjection viewInjection;
+          private IRapeField RapeField;
 
           @Override
           protected void onCreate(Bundle savedInstanceState) {
               super.onCreate(savedInstanceState);
               //you adapter have no-params constructor,so if you config @Adapter(MyAdapter.class) at right place,we'll make instance automatic and inject it.
-              viewInjection = new ViewInjection().setVIContext(new VIContext().addPlugin(new ContentSetter(),
+              RapeField = new RapeField().setVIContext(new VIContext().addPlugin(new ContentSetter(),
                                                                                          new EventBinder(),
                                                                                          new AdapterSetter(),
                                                                                          new AnimationSetter()))
-                                                                                               .initView(this);
+                                                                                               .inject(this);
           }
 
           @Override
@@ -500,11 +506,11 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
                       itemView = LayoutInflater.from(AdapterViewActivity1.this).inflate(R.layout.ac_sec_lv_item, parent, false);
                       holder = new MyHolder();
                       //-------------------------------------------------
-                      viewInjection.initView(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been make instance auto,
+                      RapeField.inject(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been make instance auto,
                       //-------------------------------------------------                         //because of annotation @Adapter(MyAdapter.class),we have helped you
                       holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);       //setAdapter automatic with instance creating, if your Adapter class
                       itemView.setTag(holder);                                                    //have no empty-param constructor,you should pass the instance in
-                  }                                                                               //initView(Object... obj) manually,because we don't know what object
+                  }                                                                               //inject(Object... obj) manually,because we don't know what object
                   holder.ac_sec_lv_item_iv.setImageResource(R.mipmap.ic_launcher);                //in params to create instance...
                   holder.ac_sec_lv_item_tv.setText(list.get(position));
                   return itemView;

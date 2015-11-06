@@ -25,25 +25,27 @@
  *  Any question contacting with email below:
  *  maizi0122@gmail.com
  */
-apply plugin: 'com.android.library'
-android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
 
-    defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+package org.studio.maizi.rapefield.anno;
 
-dependencies {
-    compile project(':rapefield')
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+/**
+ * mark the contentView's resId
+ * Powered by Maizi-Studio.<br />
+ * Design by maizi.<br />
+ * Created on 15-11-5.
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface ContentView {
+    /**
+     * the contentView's resId
+     *
+     * @return ...
+     */
+    int value();
 }
