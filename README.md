@@ -71,14 +71,14 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
           @Adapter(MyAdapter.class)
           private ListView ac_sec_lv;
 
-          private IRapeField RapeField;
+          private IRapeField rapeField;
 
           @Override
           protected void onCreate(Bundle savedInstanceState) {
               super.onCreate(savedInstanceState);
 
               //you adapter have no-params constructor,so if you config @Adapter(MyAdapter.class) at right place,we'll make instance automatic and inject it.
-              RapeField = new RapeField().inject(this);
+              rapeField = new RapeField().inject(this);
 
           }
 
@@ -112,7 +112,7 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
                       itemView = LayoutInflater.from(AdapterViewActivity1.this).inflate(R.layout.ac_sec_lv_item, parent, false);
                       holder = new MyHolder();
                       //-------------------------------------------------
-                      RapeField.inject(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been made instance automatic,
+                      rapeField.inject(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been made instance automatic,
                       //-------------------------------------------------                         //because of annotation @Adapter(MyAdapter.class),we have helped you
                       holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);       //setAdapter automatic with instance creating, if your Adapter class
                       itemView.setTag(holder);                                                    //have no empty-param constructor,you should pass the instance in
@@ -203,7 +203,6 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
 
       edit your subclass of Activity like this:
 
-      @SuppressWarnings("all")
       @ContentView(R.layout.activity_main)
       public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -318,7 +317,6 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
 
       **************************************fragment like this**************************************
 
-      @SuppressWarnings("all")
       public class Fragment_Maizi extends android.app.Fragment implements View.OnClickListener {
 
           @ResId(R.id.ac_main_frag1_bt1)
@@ -435,7 +433,6 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
 
       ********************************adapter view activity like this*******************************
 
-      @SuppressWarnings("all")
       @ContentView(R.layout.activity_sec)
       public class AdapterViewActivity1 extends Activity implements AdapterView.OnItemClickListener {
 
@@ -456,13 +453,13 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
           @Anim(duration = 1000,interpolator = android.R.interpolator.bounce)
           private RelativeLayout ac_ava1_root;
 
-          private IRapeField RapeField;
+          private IRapeField rapeField;
 
           @Override
           protected void onCreate(Bundle savedInstanceState) {
               super.onCreate(savedInstanceState);
               //you adapter have no-params constructor,so if you config @Adapter(MyAdapter.class) at right place,we'll make instance automatic and inject it.
-              RapeField = new RapeField().setVIContext(new VIContext().addPlugin(new ContentSetter(),
+              rapeField = new RapeField().setVIContext(new VIContext().addPlugin(new ContentSetter(),
                                                                                          new EventBinder(),
                                                                                          new AdapterSetter(),
                                                                                          new AnimationSetter()))
@@ -506,7 +503,7 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
                       itemView = LayoutInflater.from(AdapterViewActivity1.this).inflate(R.layout.ac_sec_lv_item, parent, false);
                       holder = new MyHolder();
                       //-------------------------------------------------
-                      RapeField.inject(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been make instance auto,
+                      rapeField.inject(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been make instance auto,
                       //-------------------------------------------------                         //because of annotation @Adapter(MyAdapter.class),we have helped you
                       holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);       //setAdapter automatic with instance creating, if your Adapter class
                       itemView.setTag(holder);                                                    //have no empty-param constructor,you should pass the instance in
@@ -525,11 +522,14 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
               }
 
               private class MyHolder {
+
                   @ResId(R.id.ac_sec_lv_item_iv)
                   ImageView ac_sec_lv_item_iv;
+
                   @ResId(R.id.ac_sec_lv_item_tv)
                   @RegistListener(listeners = {MyAdapter.class})
                   TextView ac_sec_lv_item_tv;
+
                   @ResId(R.id.ac_sec_lv_item_root)
                   View itemView;
               }
