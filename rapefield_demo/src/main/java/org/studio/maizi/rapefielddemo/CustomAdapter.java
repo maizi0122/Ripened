@@ -104,11 +104,14 @@ public class CustomAdapter extends BaseAdapter implements View.OnLongClickListen
     }
 
     private class MyHolder {
+
         @ResId(R.id.ac_sec_lv_item_iv)
         ImageView ac_sec_lv_item_iv;
+
         @ResId(R.id.ac_sec_lv_item_tv)
         @RegistListener(listeners = {CustomAdapter.class})
         TextView ac_sec_lv_item_tv;
+
         @ResId(R.id.ac_sec_lv_item_root)
         View itemView;
     }

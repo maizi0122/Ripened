@@ -37,7 +37,7 @@ import org.studio.maizi.rapefield.exception.VIRuntimeException;
  * <pre>such as:
  * public class A{
  *     private Xxx abc;
- * <p/>
+ *
  *     public void setAbc(Xxx abc){
  *         this.abc = abc;
  *     }
@@ -45,9 +45,9 @@ import org.studio.maizi.rapefield.exception.VIRuntimeException;
  *     public interface Xxx{
  *         return-type fun(params...);
  *     }
- * <p/>
+ *
  *     private Yyy def;
- * <p/>
+ *
  *     public void addDef(Yyy def){
  *         this.def = def;
  *     }

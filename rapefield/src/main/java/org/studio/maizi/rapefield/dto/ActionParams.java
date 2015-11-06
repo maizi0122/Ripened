@@ -31,7 +31,7 @@ package org.studio.maizi.rapefield.dto;
 import java.lang.reflect.Field;
 
 /**
- * the object which used to transfer data.
+ * the object which used to transfer data.<br />
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
  * Created on 15-11-5.

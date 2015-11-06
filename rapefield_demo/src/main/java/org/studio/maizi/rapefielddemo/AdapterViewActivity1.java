@@ -145,13 +145,17 @@ public class AdapterViewActivity1 extends Activity implements AdapterView.OnItem
         }
 
         private class MyHolder {
+
             @ResId(R.id.ac_sec_lv_item_iv)
             ImageView ac_sec_lv_item_iv;
+
             @ResId(R.id.ac_sec_lv_item_tv)
             @RegistListener(listeners = {MyAdapter.class})
             TextView ac_sec_lv_item_tv;
+
             @ResId(R.id.ac_sec_lv_item_root)
             View itemView;
+
         }
 
     }

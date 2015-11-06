@@ -33,12 +33,16 @@ import org.studio.maizi.rapefield.anno.RegistListener;
 import java.lang.reflect.Field;
 
 /**
+ * the plugin of event binding.<br />
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
  * Created on 15-11-3.
  */
 public interface IEventBinder extends IPlugin {
 
+    /**
+     * the name of this plugin.
+     */
     String NAME = "Event";
 
     /**

@@ -31,7 +31,7 @@ package org.studio.maizi.rapefield;
 import org.studio.maizi.rapefield.dto.ActionParams;
 
 /**
- * the interface of plugin.
+ * the interface of plugin.<br />
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
  * Created on 15-11-5.

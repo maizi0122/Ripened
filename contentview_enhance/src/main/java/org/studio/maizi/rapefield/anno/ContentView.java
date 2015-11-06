@@ -34,7 +34,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * mark the contentView's resId
+ * mark the contentView's resId<br />
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
  * Created on 15-11-5.

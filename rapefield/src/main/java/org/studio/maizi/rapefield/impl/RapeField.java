@@ -46,7 +46,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 /**
- * an implementation of IViewInjection.
+ * an implementation of IViewInjection.<br />
  * Created by maizi on 13-10-8.<br />
  * <p>auto view injection
  */
@@ -86,7 +86,6 @@ public class RapeField implements IRapeField {
         analysis(context, null, clazz, null, listeners);
         return this;
     }
-
 
     @Override
     public IRapeField inject(Fragment fragment, View root, Object... listeners) {

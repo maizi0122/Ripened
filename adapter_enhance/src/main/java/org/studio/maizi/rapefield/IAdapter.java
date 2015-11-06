@@ -31,13 +31,16 @@ package org.studio.maizi.rapefield;
 import java.lang.reflect.Field;
 
 /**
- * set plugin used for adapter setting.
+ * set plugin used for adapter setting.<br />
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
  * Created on 15-11-5.
  */
 public interface IAdapter extends IPlugin {
 
+    /**
+     * the name of this plugin.
+     */
     String NAME = "Adapter";
 
     /**

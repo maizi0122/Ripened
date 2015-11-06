@@ -37,7 +37,7 @@ import org.studio.maizi.rapefield.exception.VIRuntimeException;
 import org.studio.maizi.rapefield.util.StringFormatter;
 
 /**
- * an implementation of IContent.
+ * an implementation of IContent.<br />
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
  * Created on 15-11-5.
@@ -64,7 +64,6 @@ public class ContentSetter implements IContent {
             setContentView(context, resId);
         }
     }
-
 
     @Override
     public void setContentView(Activity context, int layoutResId) {

@@ -2,10 +2,14 @@
 The open-source project of Maizi-Studio
 
 Module RapeField -- a lightly automatic view injection and smart listener、resources binding library of android(it is a beginning project...)
+
   this project's main module is RapeField, modules: adapter_enhance、contentview_enhance、eventbinder_enhance、resourcebinder_enhance
+
   are the plugin of RapeField, we are support free-choosing of composing, so you can add module with the function just you need.
+
   it can minify your apk, we also support your customize plugin with implementation of IPlugin interface...
-  we do not dependent any other third-library except android.jar, so you can proguard it in any way...
+
+  we do not dependent any other third-party library except android.jar, so you can proguard it in any way...
 
   1.download the source-bundle at the right of the webpage.
 
@@ -15,9 +19,19 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
 
   dependencies {
 
-      //-----add library module like this-----
-      compile project(':RapeField')
-      //--------------------------------------
+      //-----add library module like this only for view injection-----
+      compile project(':RapeField') //it's the base-common module of it's plugin.
+
+      //-----add library module like this for view injection and content-view setting-----
+      compile project(':contentview_enhance') //it's an plugin of module RapeField with enhancing of content-view setting
+
+      //-----add library module like this for view injection and adapter view setting-----
+      compile project(':adapter_enhance') //it's an plugin of module RapeField with enhancing of adapter setting
+
+      //-----add library module like this for view injection and listener binding-----
+      compile project(':eventbinder_enhance') //it's an plugin of module RapeField with enhancing of listener binding
+
+      //-----seeing the demo for more detail...
 
   4.1 function of auto view injection:
 
@@ -25,10 +39,10 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
 
       public class MainActivity extends Activity {
 
-          //--define your view field like this--
+          //--and add annotation like this--
           @ResId(id = R.id.ac_main_bt1)
           private Button ac_main_bt1;
-          //--define your view field like this--
+          //--define your field of view with the name you like--
 
           @Override
           protected void onCreate(Bundle savedInstanceState) {
@@ -123,10 +137,13 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
               }
 
               private class MyHolder {
+
                   @ResId(R.id.ac_sec_lv_item_iv)
                   ImageView ac_sec_lv_item_iv;
+
                   @ResId(R.id.ac_sec_lv_item_tv)
                   TextView ac_sec_lv_item_tv;
+
                   @ResId(R.id.ac_sec_lv_item_root)
                   View itemView;
               }
@@ -206,12 +223,10 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
       @ContentView(R.layout.activity_main)
       public class MainActivity extends Activity implements View.OnClickListener {
 
-          //--define your view field like this--
           @ResId(R.id.ac_main_bt1)
           @RegistListener(listeners = {MainActivity.class})
           @Anim(animResId = R.anim.slide_in_left, duration = 1000, startOffset = 0, interpolator = android.R.interpolator.linear, repeatCount = 1, fillAfter = true)
           private Button ac_main_bt1;
-          //--and add annotation ResId like this--
 
           @ResId(R.id.ac_main_bt2)
           @RegistListener(listeners = {MyOnClickListener2.class})
@@ -460,10 +475,10 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
               super.onCreate(savedInstanceState);
               //you adapter have no-params constructor,so if you config @Adapter(MyAdapter.class) at right place,we'll make instance automatic and inject it.
               rapeField = new RapeField().setVIContext(new VIContext().addPlugin(new ContentSetter(),
-                                                                                         new EventBinder(),
-                                                                                         new AdapterSetter(),
-                                                                                         new AnimationSetter()))
-                                                                                               .inject(this);
+                                                                                 new EventBinder(),
+                                                                                 new AdapterSetter(),
+                                                                                 new AnimationSetter()))
+                                         .inject(this);
           }
 
           @Override

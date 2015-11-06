@@ -31,13 +31,16 @@ package org.studio.maizi.rapefield;
 import android.app.Activity;
 
 /**
- * the plugin of contentView setting.
+ * the plugin of contentView setting.<br />
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
  * Created on 15-11-5.
  */
 public interface IContent extends IPlugin {
 
+    /**
+     * the name of this plugin.
+     */
     String NAME = "Content";
 
     /**

@@ -33,18 +33,25 @@ import android.view.View;
 import java.lang.reflect.Field;
 
 /**
- * the plugin of animation setting.
+ * the plugin of animation setting.<br />
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
  * Created on 15-11-6.
  */
 public interface IAnimation extends IPlugin {
 
+    /**
+     * the name of this plugin.
+     */
     String NAME = "Animation";
+    /**
+     * the type name of animation resource.
+     */
     String RES_ANIM_NAME = "anim";
+    /**
+     * the type name of interpolator resource.
+     */
     String RES_INTERPOLATOR_NAME = "interpolator";
-
-    int a = 10;
 
     /**
      * set the animation to the specify view object.

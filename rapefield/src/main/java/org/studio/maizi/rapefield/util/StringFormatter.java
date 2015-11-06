@@ -31,6 +31,7 @@ package org.studio.maizi.rapefield.util;
 import java.util.Formatter;
 
 /**
+ * a util for String formatting.<br />
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
  * Created on 15-11-5.
@@ -38,7 +39,7 @@ import java.util.Formatter;
 public class StringFormatter {
 
     /**
-     * a util for String formatting.
+     * format the string.
      * @param str the string which will be format
      * @param obj the object which match each place with it's turn.
      * @return the string formatted

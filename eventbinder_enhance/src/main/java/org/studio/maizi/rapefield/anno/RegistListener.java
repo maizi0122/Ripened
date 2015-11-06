@@ -34,7 +34,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * the annotation which is used for collect all the listeners you want add to current view.
+ * the annotation which is used for collect all the listeners you want add to current view.<br />
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
  * Created on 15-11-3.

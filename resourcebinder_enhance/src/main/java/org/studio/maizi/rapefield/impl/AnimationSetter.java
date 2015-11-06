@@ -42,7 +42,7 @@ import org.studio.maizi.rapefield.util.StringFormatter;
 import java.lang.reflect.Field;
 
 /**
- * an implementation of IAnimation.
+ * an implementation of IAnimation.<br />
  * Powered by Maizi-Studio.<br />
  * Design by maizi.<br />
  * Created on 15-11-6.

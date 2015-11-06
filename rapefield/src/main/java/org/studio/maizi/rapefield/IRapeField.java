@@ -8,8 +8,10 @@ import android.widget.Adapter;
 import org.studio.maizi.rapefield.impl.RapeField;
 
 /**
- * Created by maizi on 13-10-8.<br />
- * the interface of auto view injection
+ * the interface of auto view injection.<br />
+ * Powered by Maizi-Studio.<br />
+ * Design by maizi.<br />
+ * Created on 13-10-8.<br />
  */
 public interface IRapeField {
 
@@ -28,7 +30,7 @@ public interface IRapeField {
     VIContext getVIContext();
 
     /**
-     * init views automatic in an activity.
+     * inject automatic in an activity.
      *
      * @param context  current context which relate to an instance of window
      * @param listener additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...
@@ -37,7 +39,7 @@ public interface IRapeField {
     IRapeField inject(Activity context, Object... listener);
 
     /**
-     * init views automatic in a fragment.
+     * inject automatic in a fragment.
      *
      * @param fragment the fragment object.
      * @param root     the root view in your fragment.
@@ -47,7 +49,7 @@ public interface IRapeField {
     IRapeField inject(Fragment fragment, View root, Object... listener);
 
     /**
-     * init views automatic in a adapter.
+     * inject automatic in a adapter.
      *
      * @param adapter   this impl class of adapter.
      * @param root      the root view of current item.
