@@ -48,6 +48,8 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':viewinjection')
+    compile project(':adapter_enhance')
+    compile project(':contentview_enhance')
+    compile project(':eventbinder_enhance')
+    compile project(':resourcebinder_enhance')
 }

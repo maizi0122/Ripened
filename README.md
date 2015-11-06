@@ -199,36 +199,44 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
 
       edit your subclass of Activity like this:
 
+      @SuppressWarnings("all")
       @ContentView(R.layout.activity_main)
       public class MainActivity extends Activity implements View.OnClickListener {
 
           //--define your view field like this--
           @ResId(R.id.ac_main_bt1)
           @RegistListener(listeners = {MainActivity.class})
+          @Anim(animResId = R.anim.slide_in_left, duration = 1000, startOffset = 0, interpolator = android.R.interpolator.linear, repeatCount = 1, fillAfter = true)
           private Button ac_main_bt1;
           //--and add annotation ResId like this--
 
           @ResId(R.id.ac_main_bt2)
           @RegistListener(listeners = {MyOnClickListener2.class})
+          @Anim(animResId = R.anim.slide_in_right, duration = 1000)
           private Button ac_main_bt2;
 
           @ResId(R.id.ac_main_bt3)
           @RegistListener(listeners = {MyOnClickListener3.class})
+          @Anim(animResId = R.anim.slide_in_top, duration = 1000)
           private Button ac_main_bt3;
 
           @ResId(R.id.ac_main_bt4)
           @RegistListener(listeners = {MyOnClickListener4.class})
+          @Anim(animResId = R.anim.slide_in_top_self, duration = 1000)
           private Button ac_main_bt4;
 
           @ResId(R.id.ac_main_bt5)
+          @Anim(animResId = R.anim.slide_in_bottom_self, duration = 1000)
           @RegistListener(listeners = {CustomOnClickListener1.class})
           private Button ac_main_bt5;
 
           @ResId(R.id.ac_main_bt6)
+          @Anim(animResId = R.anim.slide_in_bottom, duration = 1000)
           @RegistListener(listeners = {CustomOnClickListener2.class})
           private Button ac_main_bt6;
 
           @ResId(R.id.ac_main_bt7)
+          @Anim(animResId = R.anim.fade_in, duration = 1000, interpolator = android.R.interpolator.accelerate_quad)
           private Button ac_main_bt7;
 
           @ResId(R.id.maizi_contaniner)
@@ -239,8 +247,13 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
           protected void onCreate(Bundle savedInstanceState) {
               super.onCreate(savedInstanceState);
 
-              //--invoke auto view injection like this--
-              new ViewInjection().initView(this, new MyOnClickListener4("...fourth way...\nhello maizi"), new CustomOnClickListener2("...sixth way...\nhello maizi"));
+              //--invoke auto view injection like this--      you can choose which one or more plugin to use.
+              new ViewInjection().setVIContext(new VIContext().addPlugin(new ContentSetter(),
+                                                                         new EventBinder(),
+                                                                         new AnimationSetter()))
+                                 .initView(this,
+                                           new MyOnClickListener4("...fourth way...\nhello maizi"),
+                                           new CustomOnClickListener2("...sixth way...\nhello maizi"));
 
               ac_main_bt7.setOnClickListener(new View.OnClickListener() {
                   @Override
@@ -297,6 +310,7 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
 
       **************************************fragment like this**************************************
 
+      @SuppressWarnings("all")
       public class Fragment_Maizi extends android.app.Fragment implements View.OnClickListener {
 
           @ResId(R.id.ac_main_frag1_bt1)
@@ -338,10 +352,18 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
           @RegistListener(listeners = {Fragment_Maizi.class})
           private Button ac_main_frag1_bt10;
 
+          @ResId(R.id.ac_main_frag_root)
+          @Anim(animResId = R.anim.slide_in_bottom_self, duration = 2000, interpolator = android.R.interpolator.accelerate_quad)
+          private RelativeLayout ac_main_frag_root;
+
           @Override
           public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-              View root = inflater.inflate(R.layout.layout_fragment_1, container, false);
-              new ViewInjection().initView(this, root, new MyOnClickListener4("fragment\n...fourth way...\nhello maizi"), new CustomOnClickListener2("fragment\n...sixth way...\nhello maizi"));
+              View root = inflater.inflate(R.layout.layout_fragment, container, false);
+              new ViewInjection().setVIContext(new VIContext().addPlugin(new EventBinder(),
+                                                                         new AnimationSetter()))
+                                 .initView(this, root,
+                                           new MyOnClickListener4("fragment\n...fourth way...\nhello maizi"),
+                                           new CustomOnClickListener2("fragment\n...sixth way...\nhello maizi"));
 
               ac_main_frag1_bt7.setOnClickListener(new View.OnClickListener() {
                   @Override
@@ -407,98 +429,106 @@ Module ViewInjection -- a lightly automatic view injection and smart listener bi
 
       ********************************adapter view activity like this*******************************
 
+      @SuppressWarnings("all")
       @ContentView(R.layout.activity_sec)
       public class AdapterViewActivity1 extends Activity implements AdapterView.OnItemClickListener {
 
           private List<String> list = new ArrayList<String>() {
-          {
-              for (int i = 0; i < 20; i++) {
-                  this.add("(<-press img)...hello maizi...(<-long press tv)" + i);
+              {
+                  for (int i = 0; i < 20; i++) {
+                      this.add("(<-press img)...hello maizi...(<-long press tv)" + i);
+                  }
               }
-          }
-      };
+          };
 
-      @ResId(R.id.ac_sec_lv)
-      @Adapter(MyAdapter.class)
-      @RegistListener(listeners = {AdapterViewActivity1.class})
-      private ListView ac_sec_lv;
+          @ResId(R.id.ac_sec_lv)
+          @Adapter(MyAdapter.class)
+          @RegistListener(listeners = {AdapterViewActivity1.class})
+          private ListView ac_sec_lv;
 
-      private IViewInjection viewInjection;
+          @ResId(R.id.ac_ava1_root)
+          @Anim(duration = 1000,interpolator = android.R.interpolator.bounce)
+          private RelativeLayout ac_ava1_root;
 
-      @Override
-      protected void onCreate(Bundle savedInstanceState) {
-          super.onCreate(savedInstanceState);
-          //you adapter have no-params constructor,so if you config @Adapter(MyAdapter.class) at right place,we'll make instance automatic and inject it.
-          viewInjection = new ViewInjection().initView(this);
-
-      }
-
-      @Override
-      @EventTarget(targets = {R.id.ac_sec_lv})
-      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-          String[] arrays = TextView.class.cast(view.findViewById(R.id.ac_sec_lv_item_tv)).getText().toString().split("\\(<\\-([a-z[\\p{Space}]]+)\\)");
-          Toast.makeText(this, new StringBuilder("item ").append(arrays[1]).append(arrays[2]).append("\n have been clicked").toString(), Toast.LENGTH_SHORT).show();
-      }
-
-      private class MyAdapter extends BaseAdapter implements View.OnLongClickListener {
-
-          /*private MyAdapter(){} default empty-params constructor*/
+          private IViewInjection viewInjection;
 
           @Override
-          public int getCount() {
-              return list.size();
+          protected void onCreate(Bundle savedInstanceState) {
+              super.onCreate(savedInstanceState);
+              //you adapter have no-params constructor,so if you config @Adapter(MyAdapter.class) at right place,we'll make instance automatic and inject it.
+              viewInjection = new ViewInjection().setVIContext(new VIContext().addPlugin(new ContentSetter(),
+                                                                                         new EventBinder(),
+                                                                                         new AdapterSetter(),
+                                                                                         new AnimationSetter()))
+                                                                                               .initView(this);
           }
 
           @Override
-          public Object getItem(int position) {
-              return null;
+          @EventTarget(targets = {R.id.ac_sec_lv})
+          public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+              String[] arrays = TextView.class.cast(view.findViewById(R.id.ac_sec_lv_item_tv)).getText().toString().split("\\(<\\-([a-z[\\p{Space}]]+)\\)");
+              Toast.makeText(this, new StringBuilder("item ").append(arrays[1]).append(arrays[2]).append("\n have been clicked").toString(), Toast.LENGTH_SHORT).show();
           }
 
-          @Override
-          public long getItemId(int position) {
-              return 0;
-          }
+          private class MyAdapter extends BaseAdapter implements View.OnLongClickListener {
 
-          @Override
-          public View getView(int position, View convertView, ViewGroup parent) {
-              View itemView = null;
-              MyHolder holder = null;
-              if (convertView != null) {
-                  itemView = convertView;
-                  holder = MyHolder.class.cast(itemView.getTag());
-              } else {
-                  itemView = LayoutInflater.from(AdapterViewActivity1.this).inflate(R.layout.ac_sec_lv_item, parent, false);
-                  holder = new MyHolder();
-                  //-------------------------------------------------
-                  viewInjection.initView(this, itemView, holder, this);
-                  //-------------------------------------------------
-                  holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-                  itemView.setTag(holder);
+              /*private MyAdapter(){} default empty-params constructor*/
+
+              @Override
+              public int getCount() {
+                  return list.size();
               }
-              holder.ac_sec_lv_item_iv.setImageResource(R.mipmap.ic_launcher);
-              holder.ac_sec_lv_item_tv.setText(list.get(position));
-              return itemView;
-          }
 
-          @Override
-          @EventTarget(targets = {R.id.ac_sec_lv_item_tv})
-          public boolean onLongClick(View v) {
-              String[] arrays = TextView.class.cast(v.findViewById(R.id.ac_sec_lv_item_tv)).getText().toString().split("\\(<\\-([a-z[\\p{Space}]]+)\\)");
-              Toast.makeText(AdapterViewActivity1.this, new StringBuilder("TextView ").append(arrays[1]).append(arrays[2]).append("\n have been long clicked").toString(), Toast.LENGTH_SHORT).show();
-              return false;
-          }
+              @Override
+              public Object getItem(int position) {
+                  return null;
+              }
 
-          private class MyHolder {
-              @ResId(R.id.ac_sec_lv_item_iv)
-              ImageView ac_sec_lv_item_iv;
-              @ResId(R.id.ac_sec_lv_item_tv)
-              @RegistListener(listeners = {MyAdapter.class})
-              TextView ac_sec_lv_item_tv;
-              @ResId(R.id.ac_sec_lv_item_root)
-              View itemView;
-          }
+              @Override
+              public long getItemId(int position) {
+                  return 0;
+              }
 
+              @Override
+              public View getView(int position, View convertView, ViewGroup parent) {
+                  View itemView = null;
+                  MyHolder holder = null;
+                  if (convertView != null) {
+                      itemView = convertView;
+                      holder = MyHolder.class.cast(itemView.getTag());
+                  } else {
+                      itemView = LayoutInflater.from(AdapterViewActivity1.this).inflate(R.layout.ac_sec_lv_item, parent, false);
+                      holder = new MyHolder();
+                      //-------------------------------------------------
+                      viewInjection.initView(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been make instance auto,
+                      //-------------------------------------------------                         //because of annotation @Adapter(MyAdapter.class),we have helped you
+                      holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);       //setAdapter automatic with instance creating, if your Adapter class
+                      itemView.setTag(holder);                                                    //have no empty-param constructor,you should pass the instance in
+                  }                                                                               //initView(Object... obj) manually,because we don't know what object
+                  holder.ac_sec_lv_item_iv.setImageResource(R.mipmap.ic_launcher);                //in params to create instance...
+                  holder.ac_sec_lv_item_tv.setText(list.get(position));
+                  return itemView;
+              }
+
+              @Override
+              @EventTarget(targets = {R.id.ac_sec_lv_item_tv})
+              public boolean onLongClick(View v) {
+                  String[] arrays = TextView.class.cast(v.findViewById(R.id.ac_sec_lv_item_tv)).getText().toString().split("\\(<\\-([a-z[\\p{Space}]]+)\\)");
+                  Toast.makeText(AdapterViewActivity1.this, new StringBuilder("TextView ").append(arrays[1]).append(arrays[2]).append("\n have been long clicked").toString(), Toast.LENGTH_SHORT).show();
+                  return false;
+              }
+
+              private class MyHolder {
+                  @ResId(R.id.ac_sec_lv_item_iv)
+                  ImageView ac_sec_lv_item_iv;
+                  @ResId(R.id.ac_sec_lv_item_tv)
+                  @RegistListener(listeners = {MyAdapter.class})
+                  TextView ac_sec_lv_item_tv;
+                  @ResId(R.id.ac_sec_lv_item_root)
+                  View itemView;
+              }
+
+          }
       }
-  }
 
   5.enjoy your coding-time...

@@ -34,11 +34,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import org.studio.maizi.viewinjection.VIContext;
+import org.studio.maizi.viewinjection.anno.Anim;
 import org.studio.maizi.viewinjection.anno.EventTarget;
 import org.studio.maizi.viewinjection.anno.RegistListener;
 import org.studio.maizi.viewinjection.anno.ResId;
+import org.studio.maizi.viewinjection.impl.AnimationSetter;
 import org.studio.maizi.viewinjection.impl.EventBinder;
 import org.studio.maizi.viewinjection.impl.ViewInjection;
 import org.studio.maizi.viewinjectiondemo.AdapterViewActivity1;
@@ -95,10 +99,18 @@ public class Fragment_Maizi extends android.app.Fragment implements View.OnClick
     @RegistListener(listeners = {Fragment_Maizi.class})
     private Button ac_main_frag1_bt10;
 
+    @ResId(R.id.ac_main_frag_root)
+    @Anim(animResId = R.anim.slide_in_bottom_self, duration = 2000, interpolator = android.R.interpolator.accelerate_quad)
+    private RelativeLayout ac_main_frag_root;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.layout_fragment_1, container, false);
-        new ViewInjection().initView(this, root, new MyOnClickListener4("fragment\n...fourth way...\nhello maizi"), new CustomOnClickListener2("fragment\n...sixth way...\nhello maizi"));
+        View root = inflater.inflate(R.layout.layout_fragment, container, false);
+        new ViewInjection().setVIContext(new VIContext().addPlugin(new EventBinder(),
+                                                                   new AnimationSetter()))
+                           .initView(this, root,
+                                     new MyOnClickListener4("fragment\n...fourth way...\nhello maizi"),
+                                     new CustomOnClickListener2("fragment\n...sixth way...\nhello maizi"));
 
         ac_main_frag1_bt7.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +172,4 @@ public class Fragment_Maizi extends android.app.Fragment implements View.OnClick
             Toast.makeText(Fragment_Maizi.this.getActivity(), text, Toast.LENGTH_SHORT).show();
         }
     }
-
-
 }

@@ -41,7 +41,7 @@ import org.studio.maizi.viewinjection.anno.EventTarget;
 public class CustomOnClickListener1 implements View.OnClickListener {
 
     @Override
-    @EventTarget(targets = {R.id.ac_main_bt5,R.id.ac_main_frag1_bt5})
+    @EventTarget(targets = {R.id.ac_main_bt5, R.id.ac_main_frag1_bt5})
     public void onClick(View v) {
         Toast.makeText(v.getContext(), "...fifth way...\nhello maizi", Toast.LENGTH_SHORT).show();
     }

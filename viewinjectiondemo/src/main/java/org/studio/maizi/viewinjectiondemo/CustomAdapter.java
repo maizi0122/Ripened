@@ -37,6 +37,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.studio.maizi.viewinjection.VIContext;
 import org.studio.maizi.viewinjection.anno.EventTarget;
 import org.studio.maizi.viewinjection.anno.RegistListener;
 import org.studio.maizi.viewinjection.anno.ResId;
@@ -86,9 +87,10 @@ public class CustomAdapter extends BaseAdapter implements View.OnLongClickListen
             itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.ac_sec_lv_item, parent, false);
             holder = new MyHolder();
             //-------------------------------------------------
-            new ViewInjection().initView(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been make instance auto,
+            new ViewInjection().setVIContext(new VIContext().addPlugin(new EventBinder()))
+                               .initView(this, itemView, holder, this);//-----------------attention last this,MyAdapter have been make instance auto,
             //-------------------------------------------------                         //because of annotation @Adapter(MyAdapter.class),we have helped you
-            holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);       //setAdapter automatic with instance creating, if your Adapter class
+            holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);       //setAdapter automatic with instance creating, if your Adapter class
             itemView.setTag(holder);                                                    //have no empty-param constructor,you should pass the instance in
         }                                                                               //initView(Object... obj) manually,because we don't know what object
         holder.ac_sec_lv_item_iv.setImageResource(R.mipmap.ic_launcher);                //in params to create instance...

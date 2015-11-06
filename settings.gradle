@@ -1,1 +1,1 @@
-include ':viewinjection', ':viewinjectiondemo', ':contentviewenhancer'
+include ':viewinjection', ':contentview_enhance', ':viewinjectiondemo', ':eventbinder_enhance', ':adapter_enhance', ':resourcebinder_enhance'

@@ -32,58 +32,44 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.view.View;
 import android.widget.Adapter;
-import android.widget.AdapterView;
 
-import org.studio.maizi.viewinjection.IEventBinder;
+import org.studio.maizi.viewinjection.IPlugin;
 import org.studio.maizi.viewinjection.IViewInjection;
-import org.studio.maizi.viewinjection.anno.ContentView;
-import org.studio.maizi.viewinjection.anno.RegistListener;
+import org.studio.maizi.viewinjection.VIContext;
 import org.studio.maizi.viewinjection.anno.ResId;
+import org.studio.maizi.viewinjection.dto.ActionParams;
 import org.studio.maizi.viewinjection.exception.VIRuntimeException;
 import org.studio.maizi.viewinjection.util.StringFormatter;
 import org.studio.maizi.viewinjection.util.Type;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * an implementation of IViewInjection.
- * Powered by Maizi-Studio.<br />
- * Design by maizi.<br />
- * Created on 15-10-18.
+ * Created by maizi on 13-10-8.<br />
+ * <p>auto view injection
  */
 @SuppressWarnings("all")
 public class ViewInjection implements IViewInjection {
 
-    private static final String LAYOUT_RES_NAME = "layout";
-    private static final String NOT_AN_LAYOUT_RES = "the layout resource reference by R.id.%s at class: %s is not an correct layout resource id, please check your code...";
     private static final String NULL_CTX = "param context can not be null, please check your code...";
     private static final String NULL_FRAG_OR_ROOT = "params fragment or root can not be null, please check your code...";
     private static final String NULL_ADAPTER_OR_ROOT_OR_HOLDER = "params adapter or root or holder can not be null, please check your code...";
-    private static final String NOT_ADAPTER_VIEW = "Field: %s is not a sub class of AdapterView, please check your code...";
-    private static final String NO_MATCH_ADAPTER = "Field: %s's annotation of Adapter which it's param class have no empty-constructor or your forget pass it instance manually...";
-    private static final String INSTACE_ERROR = "Field : %s's RegistListener annotation param %s.class have no empty-params constructor or it is a illegal parameter, please check your code...";
     private static final String ILLEGAL_ID = "can not find the view by id: %s annotation(ResId):#0x %s .please check your code...";
     private static final String ILLEGAL_FIELD = "Field: %s was not a subclass of view,please check your code...";
     private static final String CAST_EXCEPTION = "Field: %s : %s";
 
-    /**
-     * the object which can bind listener smartly.
-     */
-    private IEventBinder eventBinder;
+    private VIContext viContext;
 
     public ViewInjection() {
-        this(new EventBinder());
     }
 
-    public ViewInjection(IEventBinder eventBinder) {
-        this.eventBinder = eventBinder;
+    public ViewInjection(VIContext viContext) {
+        this.viContext = viContext;
     }
 
-    @Override
-    public ViewInjection setEventBinder(IEventBinder eventBinder) {
-        this.eventBinder = eventBinder;
+    public ViewInjection setVIContext(VIContext viContext) {
+        this.viContext = viContext;
         return this;
     }
 
@@ -120,10 +106,10 @@ public class ViewInjection implements IViewInjection {
      * if you setup the IEventBinder, we can also help you bind the listener smartly.<br />
      * In fact, we are not force you to use auto-event binding, you can bind the listener all by yourself.<br />
      *
-     * @param obj       may be it is current context, or it is a fragment of an activity, or an adapter
-     * @param root      if 'obj' is fragment, it is the root view of your fragment.
-     * @param clazz     the class object of 'obj'.
-     * @param listeners additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...
+     * @param obj       may be an instance of activity|fragment|hodler
+     * @param root      the root view of current item.
+     * @param clazz     the class of current obj,in case current runtime.
+     * @param listeners additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...
      */
     private void analysis(Object obj, View root, Class<?> clazz, Object holder, Object... listeners) {
         Type type = null;
@@ -136,13 +122,9 @@ public class ViewInjection implements IViewInjection {
         } else if (obj instanceof Adapter) {
             type = Type.Adapter;
         }
-        ContentView annoCV = null;
-        if (context != null && (annoCV = obj.getClass().getAnnotation(ContentView.class)) != null) {//inject the content view.
-            int resId = annoCV.value();
-            if (!context.getResources().getResourceTypeName(resId).equals(LAYOUT_RES_NAME))
-                throw new VIRuntimeException(StringFormatter.format(NOT_AN_LAYOUT_RES, context.getResources().getResourceName(resId).split("/")[1], context.getClass().getName()));
-            context.setContentView(resId);
-        }
+        IPlugin contentView = null;
+        if (viContext != null && (contentView = viContext.getContentVIew()) != null)
+            contentView.action(new ActionParams(obj, null, null, 0, null, null));
         Field[] declaredFields = clazz.getDeclaredFields();
         if (type.equals(Type.Adapter))
             declaredFields = holder.getClass().getDeclaredFields();
@@ -150,6 +132,7 @@ public class ViewInjection implements IViewInjection {
             field.setAccessible(true);
             ResId anno = field.getAnnotation(ResId.class);
             int resId = 0;
+            Object transfer = obj;
             if (anno != null) {
                 resId = anno.value();
                 View viewById = null;
@@ -174,89 +157,21 @@ public class ViewInjection implements IViewInjection {
                 if (!isFind)
                     throw new VIRuntimeException(StringFormatter.format(ILLEGAL_FIELD, field.toString()));
                 try {
-                    Object transfer = obj;
+
                     if (type.equals(Type.Adapter))
                         obj = holder;
                     field.set(obj, field.getType().cast(viewById));
-                    org.studio.maizi.viewinjection.anno.Adapter annoAdpt = null;
-                    if ((annoAdpt = field.getAnnotation(org.studio.maizi.viewinjection.anno.Adapter.class)) != null) {
-                        setAdapter(transfer, null, field, annoAdpt.value(), listeners);
-                    }
                 } catch (RuntimeException e) {
                     throw new VIRuntimeException(StringFormatter.format(CAST_EXCEPTION, field.toString(), e.getMessage()));
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
             }
-            RegistListener annoRegist = null;
-            if (resId != 0 && (annoRegist = field.getAnnotation(RegistListener.class)) != null && eventBinder != null) {
-                eventBinder.bindEvent(field, resId, obj, annoRegist, listeners);
-            }
-        }
-    }
-
-    /**
-     * @param obj               may be it is current context, or it is a fragment of an activity, or an adapter
-     * @param adapter           the object of adapter.
-     * @param field             the field current scannnig.
-     * @param cls               the impl class of your adapter
-     * @param adapter_listeners additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...
-     */
-    private void setAdapter(Object obj, Object adapter, Field field, Class<?> cls, Object... adapter_listeners) {
-        try {
-            Constructor<?> constructor = null;
-            int paramsLen = 0;
-            Object target = null;
-            if (!(field.get(obj) instanceof AdapterView))
-                throw new VIRuntimeException(StringFormatter.format(NOT_ADAPTER_VIEW, field.toGenericString()));
-            Constructor<?>[] declaredConstructors = cls.getDeclaredConstructors();
-            for (Constructor<?> _constructor : declaredConstructors) {
-                _constructor.setAccessible(true);
-                Class<?>[] params = _constructor.getParameterTypes();
-                if (params.length == 1) {
-                    if (params[0] == obj.getClass()) {
-                        constructor = _constructor;
-                        paramsLen = 1;
-                        break;
-                    }
-                } else if (params.length == 0) {
-                    constructor = _constructor;
-                    paramsLen = 0;
-                    break;
+            if (viContext != null)
+                for (IPlugin plugin : viContext.getPlugins()) {
+                    if (!(plugin.getName().equals("Content")))
+                        plugin.action(new ActionParams(obj, transfer, field, resId, holder, listeners));
                 }
-            }
-            if (constructor == null)
-                throw new InstantiationException(StringFormatter.format(INSTACE_ERROR, field.toString(), cls.getSimpleName()));
-            if (paramsLen == 0)
-                target = constructor.newInstance();
-            else if (paramsLen == 1)
-                target = constructor.newInstance(obj);
-            AdapterView.class.cast(field.get(obj)).setAdapter(Adapter.class.cast(target));
-        } catch (IllegalAccessException e) {
-            //can't reach
-            e.printStackTrace();
-        } catch (InstantiationException e) {//represent no matching empty-constructor,attempt to find instance obj pass by user manually.
-            boolean isFind = false;
-            Adapter target = null;
-            for (Object object : adapter_listeners) {
-                if (object instanceof Adapter) {
-                    target = Adapter.class.cast(object);
-                    try {
-                        AdapterView.class.cast(field.get(obj)).setAdapter(target);
-                    } catch (IllegalAccessException e1) {
-                        //can't reach
-                        e1.printStackTrace();
-                    }
-                    isFind = true;
-                    break;
-                }
-            }
-            if (!isFind)
-                throw new VIRuntimeException(StringFormatter.format(NO_MATCH_ADAPTER, field.getType().getName()));
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            //can't reach
-            e.printStackTrace();
         }
     }
 }

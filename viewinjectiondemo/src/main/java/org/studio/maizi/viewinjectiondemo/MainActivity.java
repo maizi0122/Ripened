@@ -37,45 +37,56 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import org.studio.maizi.viewinjection.VIContext;
+import org.studio.maizi.viewinjection.anno.Anim;
 import org.studio.maizi.viewinjection.anno.ContentView;
 import org.studio.maizi.viewinjection.anno.EventTarget;
 import org.studio.maizi.viewinjection.anno.RegistListener;
 import org.studio.maizi.viewinjection.anno.ResId;
+import org.studio.maizi.viewinjection.impl.AnimationSetter;
+import org.studio.maizi.viewinjection.impl.ContentSetter;
 import org.studio.maizi.viewinjection.impl.EventBinder;
 import org.studio.maizi.viewinjection.impl.ViewInjection;
 import org.studio.maizi.viewinjectiondemo.fragment.Fragment_Maizi;
 
-@ContentView(R.layout.activity_main)
 @SuppressWarnings("all")
+@ContentView(R.layout.activity_main)
 public class MainActivity extends Activity implements View.OnClickListener {
 
     //--define your view field like this--
     @ResId(R.id.ac_main_bt1)
     @RegistListener(listeners = {MainActivity.class})
+    @Anim(animResId = R.anim.slide_in_left, duration = 1000, startOffset = 0, interpolator = android.R.interpolator.linear, repeatCount = 1, fillAfter = true)
     private Button ac_main_bt1;
     //--and add annotation ResId like this--
 
     @ResId(R.id.ac_main_bt2)
     @RegistListener(listeners = {MyOnClickListener2.class})
+    @Anim(animResId = R.anim.slide_in_right, duration = 1000)
     private Button ac_main_bt2;
 
     @ResId(R.id.ac_main_bt3)
     @RegistListener(listeners = {MyOnClickListener3.class})
+    @Anim(animResId = R.anim.slide_in_top, duration = 1000)
     private Button ac_main_bt3;
 
     @ResId(R.id.ac_main_bt4)
     @RegistListener(listeners = {MyOnClickListener4.class})
+    @Anim(animResId = R.anim.slide_in_top_self, duration = 1000)
     private Button ac_main_bt4;
 
     @ResId(R.id.ac_main_bt5)
+    @Anim(animResId = R.anim.slide_in_bottom_self, duration = 1000)
     @RegistListener(listeners = {CustomOnClickListener1.class})
     private Button ac_main_bt5;
 
     @ResId(R.id.ac_main_bt6)
+    @Anim(animResId = R.anim.slide_in_bottom, duration = 1000)
     @RegistListener(listeners = {CustomOnClickListener2.class})
     private Button ac_main_bt6;
 
     @ResId(R.id.ac_main_bt7)
+    @Anim(animResId = R.anim.fade_in, duration = 1000, interpolator = android.R.interpolator.accelerate_quad)
     private Button ac_main_bt7;
 
     @ResId(R.id.maizi_contaniner)
@@ -86,8 +97,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //--invoke auto view injection like this--
-        new ViewInjection().initView(this, new MyOnClickListener4("...fourth way...\nhello maizi"), new CustomOnClickListener2("...sixth way...\nhello maizi"));
+        //--invoke auto view injection like this--      you can choose which one or more plugin to use.
+        new ViewInjection().setVIContext(new VIContext().addPlugin(new ContentSetter(),
+                                                                   new EventBinder(),
+                                                                   new AnimationSetter()))
+                           .initView(this,
+                                     new MyOnClickListener4("...fourth way...\nhello maizi"),
+                                     new CustomOnClickListener2("...sixth way...\nhello maizi"));
 
         ac_main_bt7.setOnClickListener(new View.OnClickListener() {
             @Override

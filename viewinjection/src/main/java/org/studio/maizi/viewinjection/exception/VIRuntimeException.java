@@ -34,5 +34,8 @@ package org.studio.maizi.viewinjection.exception;
  * Created on 15-11-4.
  */
 public class VIRuntimeException extends RuntimeException {
+
     public VIRuntimeException(String detailMessage) { super(detailMessage); }
+
+    public VIRuntimeException(String detailMessage, Throwable throwable) { super(detailMessage, throwable); }
 }

@@ -30,23 +30,24 @@ package org.studio.maizi.viewinjectiondemo;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.studio.maizi.viewinjection.IViewInjection;
+import org.studio.maizi.viewinjection.VIContext;
 import org.studio.maizi.viewinjection.anno.Adapter;
+import org.studio.maizi.viewinjection.anno.Anim;
 import org.studio.maizi.viewinjection.anno.ContentView;
 import org.studio.maizi.viewinjection.anno.EventTarget;
 import org.studio.maizi.viewinjection.anno.RegistListener;
 import org.studio.maizi.viewinjection.anno.ResId;
+import org.studio.maizi.viewinjection.impl.AdapterSetter;
+import org.studio.maizi.viewinjection.impl.AnimationSetter;
+import org.studio.maizi.viewinjection.impl.ContentSetter;
 import org.studio.maizi.viewinjection.impl.EventBinder;
 import org.studio.maizi.viewinjection.impl.ViewInjection;
 
@@ -58,8 +59,8 @@ import java.util.List;
  * Design by maizi.<br />
  * Created on 15-11-5.
  */
-@ContentView(R.layout.activity_sec)
 @SuppressWarnings("all")
+@ContentView(R.layout.activity_sec)
 public class AdapterViewActivity3 extends Activity implements AdapterView.OnItemClickListener {
 
     private List<String> list = new ArrayList<String>() {
@@ -75,13 +76,21 @@ public class AdapterViewActivity3 extends Activity implements AdapterView.OnItem
     @RegistListener(listeners = {AdapterViewActivity3.class})
     private ListView ac_sec_lv;
 
+    @ResId(R.id.ac_ava1_root)
+    @Anim(duration = 1000, interpolator = android.R.interpolator.decelerate_cubic)
+    private RelativeLayout ac_ava1_root;
+
     private IViewInjection viewInjection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //you adapter class have no empty-params constructor,you should make instance manually and pass it like : initView(this, new MyAdapter("maizi"));
-        viewInjection = new ViewInjection().initView(this, new CustomAdapter(list));
+        viewInjection = new ViewInjection().setVIContext(new VIContext().addPlugin(new ContentSetter(),
+                                                                                   new EventBinder(),
+                                                                                   new AdapterSetter(),
+                                                                                   new AnimationSetter()))
+                                           .initView(this, new CustomAdapter(list));
 
     }
 

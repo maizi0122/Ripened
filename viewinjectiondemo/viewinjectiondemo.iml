@@ -88,6 +88,9 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="viewinjection" exported="" />
+    <orderEntry type="module" module-name="contentview_enhance" exported="" />
+    <orderEntry type="module" module-name="eventbinder_enhance" exported="" />
+    <orderEntry type="module" module-name="adapter_enhance" exported="" />
+    <orderEntry type="module" module-name="resourcebinder_enhance" exported="" />
   </component>
 </module>

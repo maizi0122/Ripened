@@ -10,7 +10,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/contentviewenhancer" />
+            <option value="$PROJECT_DIR$/adapter_enhance" />
+            <option value="$PROJECT_DIR$/contentview_enhance" />
+            <option value="$PROJECT_DIR$/eventbinder_enhance" />
+            <option value="$PROJECT_DIR$/resourcebinder_enhance" />
             <option value="$PROJECT_DIR$/viewinjection" />
             <option value="$PROJECT_DIR$/viewinjectiondemo" />
           </set>
