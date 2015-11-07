@@ -1,7 +1,7 @@
 # Ripend (the awn of wheat)
 The open-source project of Maizi-Studio
 
-<img src="http://img.daimg.com/uploads/allimg/120529/3-1205291052394N.jpg" style="width:494px; height:560px;margin-top:0px; "/>
+<img src="http://img.daimg.com/uploads/allimg/120529/3-1205291052394N.jpg" style="width:247px; height:280px;margin-top:0px; "/>
 
 Module Ripend -- a lightly automatic view injection and smart listener、resources binding library of android(it is a beginning project...)
 
