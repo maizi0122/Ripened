@@ -95,11 +95,6 @@ public class AnimationSetter implements IAnimation {
             throw new VIRuntimeException(StringFormatter.format(WRONG_ANIM_START_OFFSET, field.toGenericString(), startOffset));
         if (repeatCount < 0)
             throw new VIRuntimeException(StringFormatter.format(WRONG_ANIM_REPEAT_COUNT, field.toGenericString(), repeatCount));
-        try {
-            duration = resources.getInteger(duration);
-        } catch (Resources.NotFoundException e) {
-            e.printStackTrace();
-        }
 
         Animation anim = AnimationUtils.loadAnimation(view.getContext(), animResId);
         anim.setDuration(duration);

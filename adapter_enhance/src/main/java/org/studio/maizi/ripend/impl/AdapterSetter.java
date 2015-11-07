@@ -117,7 +117,6 @@ public class AdapterSetter implements IAdapter {
             }
             if (!isFind)
                 throw new VIRuntimeException(StringFormatter.format(NO_MATCH_ADAPTER, field.getType().getName()));
-            e.printStackTrace();
         } catch (InvocationTargetException e) {
             //can't reach
             e.printStackTrace();
