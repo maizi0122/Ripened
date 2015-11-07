@@ -1,11 +1,11 @@
-# RapeField
+# Ripend (the awn of wheat)
 The open-source project of Maizi-Studio
 
-Module RapeField -- a lightly automatic view injection and smart listener、resources binding library of android(it is a beginning project...)
+Module Ripend -- a lightly automatic view injection and smart listener、resources binding library of android(it is a beginning project...)
 
-  this project's main module is RapeField, modules: adapter_enhance、contentview_enhance、eventbinder_enhance、resourcebinder_enhance
+  this project's main module is Ripend, modules: adapter_enhance、contentview_enhance、eventbinder_enhance、resourcebinder_enhance
 
-  are the plugin of RapeField, we are support free-choosing of composing, so you can add module with the function just you need.
+  are the plugin of Ripend, we are support free-choosing of composing, so you can add module with the function just you need.
 
   it can minify your apk, we also support your customize plugin with implementation of IPlugin interface...
 
@@ -20,16 +20,16 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
   dependencies {
 
       //-----add library module like this only for view injection-----
-      compile project(':RapeField') //it's the base-common module of it's plugin.
+      compile project(':Ripend') //it's the base-common module of it's plugin.
 
       //-----add library module like this for view injection and content-view setting-----
-      compile project(':contentview_enhance') //it's an plugin of module RapeField with enhancing of content-view setting
+      compile project(':contentview_enhance') //it's an plugin of module Ripend with enhancing of content-view setting
 
       //-----add library module like this for view injection and adapter view setting-----
-      compile project(':adapter_enhance') //it's an plugin of module RapeField with enhancing of adapter setting
+      compile project(':adapter_enhance') //it's an plugin of module Ripend with enhancing of adapter setting
 
       //-----add library module like this for view injection and listener binding-----
-      compile project(':eventbinder_enhance') //it's an plugin of module RapeField with enhancing of listener binding
+      compile project(':eventbinder_enhance') //it's an plugin of module Ripend with enhancing of listener binding
 
       //-----seeing the demo for more detail...
 
@@ -50,7 +50,7 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
 
               setContentView(R.layout.activity_main);
               //--invoke auto view injection like this--
-              new RapeField().inject(this);
+              new Ripend().inject(this);
               //why not static-method? it will be product by the bean-factory of maizi-studio open source project at soon.like spring...
           }
       }
@@ -64,7 +64,7 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
           public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
                   View root = inflater.inflate(R.layout.layout_fragment_1, container, false);
                   //--invoke auto view injection like this-
-                  new RapeField().inject(this, root);
+                  new Ripend().inject(this, root);
                   //---------------------------------------
                   return root;
               }
@@ -85,14 +85,14 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
           @Adapter(MyAdapter.class)
           private ListView ac_sec_lv;
 
-          private IRapeField rapeField;
+          private IRipend ripend;
 
           @Override
           protected void onCreate(Bundle savedInstanceState) {
               super.onCreate(savedInstanceState);
 
               //you adapter have no-params constructor,so if you config @Adapter(MyAdapter.class) at right place,we'll make instance automatic and inject it.
-              rapeField = new RapeField().inject(this);
+              ripend = new Ripend().inject(this);
 
           }
 
@@ -126,7 +126,7 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
                       itemView = LayoutInflater.from(AdapterViewActivity1.this).inflate(R.layout.ac_sec_lv_item, parent, false);
                       holder = new MyHolder();
                       //-------------------------------------------------
-                      rapeField.inject(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been made instance automatic,
+                      ripend.inject(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been made instance automatic,
                       //-------------------------------------------------                         //because of annotation @Adapter(MyAdapter.class),we have helped you
                       holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);       //setAdapter automatic with instance creating, if your Adapter class
                       itemView.setTag(holder);                                                    //have no empty-param constructor,you should pass the instance in
@@ -266,14 +266,14 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
               super.onCreate(savedInstanceState);
 
               //--invoke auto view injection like this--      you can choose which one or more plugin to use.
-              new RapeField().setVIContext(new VIContext().addPlugin(new ContentSetter(),
+              new Ripend().setVIContext(new VIContext().addPlugin(new ContentSetter(),
                                                                          new EventBinder(),
                                                                          new AnimationSetter()))
                                  .inject(this,
                                            new MyOnClickListener4("...fourth way...\nhello maizi"),
                                            new CustomOnClickListener2("...sixth way...\nhello maizi"));
 
-              //------replace upon, you can also code like this:       new RapeField().inject(this,
+              //------replace upon, you can also code like this:       new Ripend().inject(this,
               //------because we will scan automatic, but we                                  new MyOnClickListener4("...fourth way...\nhello maizi"),
               //------also support your custom                                                new CustomOnClickListener2("...sixth way...\nhello maizi"));
 
@@ -380,7 +380,7 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
           @Override
           public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
               View root = inflater.inflate(R.layout.layout_fragment, container, false);
-              new RapeField().inject(this, root,
+              new Ripend().inject(this, root,
                                            new MyOnClickListener4("fragment\n...fourth way...\nhello maizi"),
                                            new CustomOnClickListener2("fragment\n...sixth way...\nhello maizi"));
 
@@ -468,13 +468,13 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
           @Anim(duration = 1000,interpolator = android.R.interpolator.bounce)
           private RelativeLayout ac_ava1_root;
 
-          private IRapeField rapeField;
+          private IRipend ripend;
 
           @Override
           protected void onCreate(Bundle savedInstanceState) {
               super.onCreate(savedInstanceState);
               //you adapter have no-params constructor,so if you config @Adapter(MyAdapter.class) at right place,we'll make instance automatic and inject it.
-              rapeField = new RapeField().setVIContext(new VIContext().addPlugin(new ContentSetter(),
+              ripend = new Ripend().setVIContext(new VIContext().addPlugin(new ContentSetter(),
                                                                                  new EventBinder(),
                                                                                  new AdapterSetter(),
                                                                                  new AnimationSetter()))
@@ -518,7 +518,7 @@ Module RapeField -- a lightly automatic view injection and smart listener、reso
                       itemView = LayoutInflater.from(AdapterViewActivity1.this).inflate(R.layout.ac_sec_lv_item, parent, false);
                       holder = new MyHolder();
                       //-------------------------------------------------
-                      rapeField.inject(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been make instance auto,
+                      ripend.inject(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been make instance auto,
                       //-------------------------------------------------                         //because of annotation @Adapter(MyAdapter.class),we have helped you
                       holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);       //setAdapter automatic with instance creating, if your Adapter class
                       itemView.setTag(holder);                                                    //have no empty-param constructor,you should pass the instance in

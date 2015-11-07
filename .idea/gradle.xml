@@ -13,9 +13,9 @@
             <option value="$PROJECT_DIR$/adapter_enhance" />
             <option value="$PROJECT_DIR$/contentview_enhance" />
             <option value="$PROJECT_DIR$/eventbinder_enhance" />
-            <option value="$PROJECT_DIR$/rapefield" />
-            <option value="$PROJECT_DIR$/rapefield_demo" />
             <option value="$PROJECT_DIR$/resourcebinder_enhance" />
+            <option value="$PROJECT_DIR$/ripend" />
+            <option value="$PROJECT_DIR$/ripend_demo" />
           </set>
         </option>
       </GradleProjectSettings>

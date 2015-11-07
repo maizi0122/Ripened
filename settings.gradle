@@ -1,1 +1,1 @@
-include ':rapefield', ':contentview_enhance', ':rapefield_demo', ':eventbinder_enhance', ':adapter_enhance', ':resourcebinder_enhance'
+include ':ripend', ':contentview_enhance', ':ripend_demo', ':eventbinder_enhance', ':adapter_enhance', ':resourcebinder_enhance'
