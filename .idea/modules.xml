@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/RapeField.iml" filepath="$PROJECT_DIR$/RapeField.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ripend.iml" filepath="$PROJECT_DIR$/Ripend.iml" />
       <module fileurl="file://$PROJECT_DIR$/adapter_enhance/adapter_enhance.iml" filepath="$PROJECT_DIR$/adapter_enhance/adapter_enhance.iml" />
       <module fileurl="file://$PROJECT_DIR$/contentview_enhance/contentview_enhance.iml" filepath="$PROJECT_DIR$/contentview_enhance/contentview_enhance.iml" />
       <module fileurl="file://$PROJECT_DIR$/eventbinder_enhance/eventbinder_enhance.iml" filepath="$PROJECT_DIR$/eventbinder_enhance/eventbinder_enhance.iml" />
