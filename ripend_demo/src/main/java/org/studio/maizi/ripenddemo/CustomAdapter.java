@@ -40,7 +40,7 @@ import android.widget.Toast;
 import org.studio.maizi.ripend.anno.EventTarget;
 import org.studio.maizi.ripend.anno.RegistListener;
 import org.studio.maizi.ripend.anno.ResId;
-import org.studio.maizi.ripend.impl.RapeField;
+import org.studio.maizi.ripend.impl.Ripend;
 
 import java.util.List;
 
@@ -85,7 +85,7 @@ public class CustomAdapter extends BaseAdapter implements View.OnLongClickListen
             itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.ac_sec_lv_item, parent, false);
             holder = new MyHolder();
             //-------------------------------------------------
-            new RapeField().inject(this, itemView, holder);
+            new Ripend().inject(this, itemView, holder);
             //-------------------------------------------------
             holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             itemView.setTag(holder);

@@ -41,7 +41,7 @@ import org.studio.maizi.ripend.anno.Anim;
 import org.studio.maizi.ripend.anno.EventTarget;
 import org.studio.maizi.ripend.anno.RegistListener;
 import org.studio.maizi.ripend.anno.ResId;
-import org.studio.maizi.ripend.impl.RapeField;
+import org.studio.maizi.ripend.impl.Ripend;
 import org.studio.maizi.ripenddemo.AdapterViewActivity1;
 import org.studio.maizi.ripenddemo.AdapterViewActivity2;
 import org.studio.maizi.ripenddemo.AdapterViewActivity3;
@@ -103,7 +103,7 @@ public class Fragment_Maizi extends android.app.Fragment implements View.OnClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.layout_fragment, container, false);
-        new RapeField().inject(this, root,
+        new Ripend().inject(this, root,
                 new MyOnClickListener4("fragment\n...fourth way...\nhello maizi"),
                 new CustomOnClickListener2("fragment\n...sixth way...\nhello maizi"));
 

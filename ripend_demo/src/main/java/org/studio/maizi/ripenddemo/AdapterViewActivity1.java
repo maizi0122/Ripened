@@ -42,14 +42,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.studio.maizi.ripend.IRapeField;
+import org.studio.maizi.ripend.IRipend;
 import org.studio.maizi.ripend.anno.Adapter;
 import org.studio.maizi.ripend.anno.Anim;
 import org.studio.maizi.ripend.anno.ContentView;
 import org.studio.maizi.ripend.anno.EventTarget;
 import org.studio.maizi.ripend.anno.RegistListener;
 import org.studio.maizi.ripend.anno.ResId;
-import org.studio.maizi.ripend.impl.RapeField;
+import org.studio.maizi.ripend.impl.Ripend;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,13 +80,13 @@ public class AdapterViewActivity1 extends Activity implements AdapterView.OnItem
     @Anim(duration = 1000,interpolator = android.R.interpolator.bounce)
     private RelativeLayout ac_ava1_root;
 
-    private IRapeField rapeField;
+    private IRipend ripend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //you adapter have no-params constructor,so if you config @Adapter(MyAdapter.class) at right place,we'll make instance automatic and inject it.
-        rapeField = new RapeField().inject(this);  //if your Adapter class have no empty-param constructor,you should pass the instance in
+        ripend = new Ripend().inject(this);  //if your Adapter class have no empty-param constructor,you should pass the instance in
     }                                              //inject(Object... obj) manually,because we don't know what object in params to create instance...
 
     @Override
@@ -126,7 +126,7 @@ public class AdapterViewActivity1 extends Activity implements AdapterView.OnItem
                 itemView = LayoutInflater.from(AdapterViewActivity1.this).inflate(R.layout.ac_sec_lv_item, parent, false);
                 holder = new MyHolder();
                 //-------------------------------------------------
-                rapeField.inject(this, itemView, holder);
+                ripend.inject(this, itemView, holder);
                 //-------------------------------------------------
                 holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
                 itemView.setTag(holder);

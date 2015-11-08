@@ -5,7 +5,7 @@ import android.app.Fragment;
 import android.view.View;
 import android.widget.Adapter;
 
-import org.studio.maizi.ripend.impl.RapeField;
+import org.studio.maizi.ripend.impl.Ripend;
 
 /**
  * the interface of auto view injection.<br />
@@ -13,7 +13,7 @@ import org.studio.maizi.ripend.impl.RapeField;
  * Design by maizi.<br />
  * Created on 13-10-8.<br />
  */
-public interface IRapeField {
+public interface IRipend {
 
     /**
      * set the context of viewInjection
@@ -21,7 +21,7 @@ public interface IRapeField {
      * @param viContext the context of viewInjection
      * @return the current obj
      */
-    RapeField setVIContext(VIContext viContext);
+    Ripend setVIContext(VIContext viContext);
 
     /**
      * obtain the context of RapeField.
@@ -36,7 +36,7 @@ public interface IRapeField {
      * @param listener additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...
      * @return the current obj
      */
-    IRapeField inject(Activity context, Object... listener);
+    IRipend inject(Activity context, Object... listener);
 
     /**
      * inject automatic in a fragment.
@@ -46,7 +46,7 @@ public interface IRapeField {
      * @param listener additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...
      * @return the current obj
      */
-    IRapeField inject(Fragment fragment, View root, Object... listener);
+    IRipend inject(Fragment fragment, View root, Object... listener);
 
     /**
      * inject automatic in a adapter.
@@ -57,5 +57,5 @@ public interface IRapeField {
      * @param listeners additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...
      * @return the current obj
      */
-    IRapeField inject(Adapter adapter, View root, Object holder, Object... listeners);
+    IRipend inject(Adapter adapter, View root, Object holder, Object... listeners);
 }

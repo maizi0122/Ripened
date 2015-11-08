@@ -42,7 +42,7 @@ import org.studio.maizi.ripend.anno.ContentView;
 import org.studio.maizi.ripend.anno.EventTarget;
 import org.studio.maizi.ripend.anno.RegistListener;
 import org.studio.maizi.ripend.anno.ResId;
-import org.studio.maizi.ripend.impl.RapeField;
+import org.studio.maizi.ripend.impl.Ripend;
 import org.studio.maizi.ripenddemo.fragment.Fragment_Maizi;
 
 @SuppressWarnings("all")
@@ -94,7 +94,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
 
         //--invoke auto view injection like this--      you can choose which one or more plugin to use.
-        new RapeField().inject(this, new MyOnClickListener4("...fourth way...\nhello maizi"),
+        new Ripend().inject(this, new MyOnClickListener4("...fourth way...\nhello maizi"),
                 new CustomOnClickListener2("...sixth way...\nhello maizi"));
 
         ac_main_bt7.setOnClickListener(new View.OnClickListener() {

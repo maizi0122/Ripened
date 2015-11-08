@@ -34,7 +34,7 @@ import android.view.View;
 import android.widget.Adapter;
 
 import org.studio.maizi.ripend.IPlugin;
-import org.studio.maizi.ripend.IRapeField;
+import org.studio.maizi.ripend.IRipend;
 import org.studio.maizi.ripend.VIContext;
 import org.studio.maizi.ripend.anno.ResId;
 import org.studio.maizi.ripend.dto.ActionParams;
@@ -51,7 +51,7 @@ import java.lang.reflect.Field;
  * <p>auto view injection
  */
 @SuppressWarnings("all")
-public class RapeField implements IRapeField {
+public class Ripend implements IRipend {
 
     private static final String NULL_CTX = "param context can not be null, please check your code...";
     private static final String NULL_FRAG_OR_ROOT = "params fragment or root can not be null, please check your code...";
@@ -62,14 +62,14 @@ public class RapeField implements IRapeField {
 
     private VIContext viContext;
 
-    public RapeField() {
+    public Ripend() {
     }
 
-    public RapeField(VIContext viContext) {
+    public Ripend(VIContext viContext) {
         this.viContext = viContext;
     }
 
-    public RapeField setVIContext(VIContext viContext) {
+    public Ripend setVIContext(VIContext viContext) {
         this.viContext = viContext;
         return this;
     }
@@ -80,7 +80,7 @@ public class RapeField implements IRapeField {
     }
 
     @Override
-    public IRapeField inject(Activity context, Object... listeners) {
+    public IRipend inject(Activity context, Object... listeners) {
         if (context == null)
             throw new RuntimeException(NULL_CTX);
         Class<? extends Activity> clazz = context.getClass();
@@ -89,7 +89,7 @@ public class RapeField implements IRapeField {
     }
 
     @Override
-    public IRapeField inject(Fragment fragment, View root, Object... listeners) {
+    public IRipend inject(Fragment fragment, View root, Object... listeners) {
         if (fragment == null || root == null)
             throw new RuntimeException(NULL_FRAG_OR_ROOT);
         Class<? extends Fragment> clazz = fragment.getClass();
@@ -98,7 +98,7 @@ public class RapeField implements IRapeField {
     }
 
     @Override
-    public IRapeField inject(Adapter adapter, View root, Object holder, Object... listeners) {
+    public IRipend inject(Adapter adapter, View root, Object holder, Object... listeners) {
         if (adapter == null || root == null || holder == null)
             throw new RuntimeException(NULL_ADAPTER_OR_ROOT_OR_HOLDER);
         Class<?> clazz = holder.getClass();
