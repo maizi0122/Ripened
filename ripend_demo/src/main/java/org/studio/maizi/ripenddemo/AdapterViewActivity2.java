@@ -86,9 +86,8 @@ public class AdapterViewActivity2 extends Activity implements AdapterView.OnItem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //you adapter class have no empty-params constructor,you should make instance manually and pass it like : inject(this, new MyAdapter("maizi"));
-        rapeField = new RapeField().inject(this, new MyAdapter("maizi"));
-
-    }
+        rapeField = new RapeField().inject(this, new MyAdapter("maizi")); //if your Adapter class have no empty-param constructor,you should pass the instance in
+    }                                                                     //inject(Object... obj) manually,because we don't know what object in params to create instance...
 
     @Override
     @EventTarget(targets = {R.id.ac_sec_lv})
@@ -132,12 +131,12 @@ public class AdapterViewActivity2 extends Activity implements AdapterView.OnItem
                 itemView = LayoutInflater.from(AdapterViewActivity2.this).inflate(R.layout.ac_sec_lv_item, parent, false);
                 holder = new MyHolder();
                 //-------------------------------------------------
-                rapeField.inject(this, itemView, holder, this);//-----------------------------attention last this,MyAdapter have been make instance auto,
-                //-------------------------------------------------                         //because of annotation @Adapter(MyAdapter.class),we have helped you
-                holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);       //setAdapter automatic with instance creating, if your Adapter class
-                itemView.setTag(holder);                                                    //have no empty-param constructor,you should pass the instance in
-            }                                                                               //inject(Object... obj) manually,because we don't know what object
-            holder.ac_sec_lv_item_iv.setImageResource(R.mipmap.ic_launcher);                //in params to create instance...
+                rapeField.inject(this, itemView, holder);
+                //-------------------------------------------------
+                holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                itemView.setTag(holder);
+            }
+            holder.ac_sec_lv_item_iv.setImageResource(R.mipmap.ic_launcher);
             holder.ac_sec_lv_item_tv.setText(list.get(position));
             return itemView;
         }

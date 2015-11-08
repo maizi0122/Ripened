@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~  $HomePage: https://github.com/maizi0122/ $
   ~  $Revision: 000001 $
@@ -24,10 +25,9 @@
   ~  license of apache,so you should abide by this license.
   ~  Any question contacting with email below:
   ~  maizi0122@gmail.com
-  -->
-
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.studio.maizi.ripenddemo">
+    package="org.studio.maizi.ripenddemo" >
 
     <application
         android:allowBackup="true"
@@ -35,19 +35,19 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
-            android:name="org.studio.maizi.ripenddemo.MainActivity"
-            android:label="@string/app_name">
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.studio.maizi.ripenddemo.AdapterViewActivity1" />
-        <activity android:name="org.studio.maizi.ripenddemo.AdapterViewActivity2" />
-        <activity android:name="org.studio.maizi.ripenddemo.AdapterViewActivity3" />
+        <activity android:name=".AdapterViewActivity1" />
+        <activity android:name=".AdapterViewActivity2" />
+        <activity android:name=".AdapterViewActivity3" />
     </application>
 
 </manifest>

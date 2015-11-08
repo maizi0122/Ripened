@@ -56,7 +56,7 @@ import java.util.Map;
 public class EventBinder implements IEventBinder {
 
     private static final String NO_MATCH_LISTENER = "%s have no matching listener on class %s";
-    private static final String INSTACE_ERROR = "Field : %s's RegistListener annotation param %s.class have no empty-params constructor or it is a illegal parameter, please check your code...";
+    private static final String INSTANCE_ERROR = "Field : %s's RegistListener annotation param %s.class have no empty-params constructor or it is a illegal parameter, please check your code...";
     private static final String NO_MATCH_SET_METHOD = "class : %s have no matching 'set-method' either setXxx or addYyy, read comment in class->org.studio.maizi.viewinjection.util.SimpleIntrospect for detail...";
 
     /**
@@ -82,12 +82,12 @@ public class EventBinder implements IEventBinder {
     public void action(ActionParams params) {
         RegistListener annoRegist = null;
         if (params.getResId() != 0 && (annoRegist = params.getField().getAnnotation(RegistListener.class)) != null /*&& eventBinder != null*/) {
-            bindEvent(params.getField(), params.getResId(), params.getObj(), annoRegist, params.getListeners());
+            bindEvent(params.getField(), params.getResId(), params.getObj(), params.getTransfer(), annoRegist, params.getListeners());
         }
     }
 
     @Override
-    public void bindEvent(Field field, int resId, Object obj, RegistListener anno, Object... listeners) {
+    public void bindEvent(Field field, int resId, Object obj, Object transfer, RegistListener anno, Object... listeners) {
         if (field == null) return;
         scanParams(listeners);//scan the listeners.
         Class<?>[] clazzs = anno.listeners();
@@ -96,7 +96,7 @@ public class EventBinder implements IEventBinder {
             Class<?> impl = type;
             do {
                 Class<?>[] intrs = type.getInterfaces();
-                scanIntr(field, resId, obj, impl, type, intrs, listeners);
+                scanIntr(field, resId, obj, transfer, impl, type, intrs, listeners);
             } while ((type = type.getSuperclass()) != null);
             if (!isFind)
                 throw new VIRuntimeException(StringFormatter.format(NO_MATCH_LISTENER, field.getName(), impl.getSimpleName()));
@@ -119,13 +119,14 @@ public class EventBinder implements IEventBinder {
      *
      * @param field      the field which is an instance of view current scanning.
      * @param resId      the resId of this view.
-     * @param obj        may be it is current context, or it is a fragment of an activity.
+     * @param obj        may be it is current context, or it is a fragment of an activity, or a hodler.
+     * @param transfer   if obj is object of holder,transfer represent the object of current adapter.
      * @param impl       the type which add by user in annotation @RegistListener
      * @param type       the current superClass type of type 'impl'
      * @param interfaces the interfaces which 'type' have implemented
      * @param listeners  additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...
      */
-    private void scanIntr(Field field, int resId, Object obj, Class<?> impl, Class<?> type, Class<?>[] interfaces, Object... listeners) {
+    private void scanIntr(Field field, int resId, Object obj, Object transfer, Class<?> impl, Class<?> type, Class<?>[] interfaces, Object... listeners) {
         for (Class<?> cls : interfaces) {
             if (ID_INTERFACES_MAPPING.get(resId) == null || (ID_INTERFACES_MAPPING.get(resId) != null && !ID_INTERFACES_MAPPING.get(resId).contains(cls))) {//represent it have been scanned...
                 Method[] methods = cls.getMethods();
@@ -145,7 +146,7 @@ public class EventBinder implements IEventBinder {
                             }
                             if (ID_INTERFACES_MAPPING.containsKey(resId)) {
                                 isFind = true;
-                                bind(cls, field, resId, obj, impl, type, listeners);
+                                bind(cls, field, resId, obj, transfer, impl, type, listeners);
                             }
                         }
                     } catch (NoSuchMethodException e) {
@@ -155,7 +156,7 @@ public class EventBinder implements IEventBinder {
                 }
             } else {
                 isFind = true;
-                bind(cls, field, resId, obj, impl, type, listeners);
+                bind(cls, field, resId, obj, transfer, impl, type, listeners);
             }
         }
     }
@@ -167,15 +168,19 @@ public class EventBinder implements IEventBinder {
      * @param field     the field which is an instance of view current scanning.
      * @param resId     the resId of this view.
      * @param obj       may be it is current context, or it is a fragment of an activity.
+     * @param transfer  if obj is object of holder,transfer represent the object of current adapter.
      * @param impl      the type which add by user in annotation @RegistListener
      * @param type      the current superClass type of type 'impl'
      * @param listeners additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...
      */
-    private void bind(Class<?> cls, Field field, int resId, Object obj, Class<?> impl, Class<?> type, Object... listeners) {
+    private void bind(Class<?> cls, Field field, int resId, Object obj, Object transfer, Class<?> impl, Class<?> type, Object... listeners) {
         Object object = null;
-        if (type == obj.getClass()) {
-            //attempt to inject with the obj of current context or fragment.
-            inject(cls, field, obj, null);
+        if (type == obj.getClass() || (transfer != null && type == transfer.getClass())) {
+            //attempt to inject with the obj of current context or fragment or adapter.
+            if (transfer != null)
+                inject(cls, field, transfer, obj);
+            else
+                inject(cls, field, obj, null);
             return;
         } else if ((object = CLASS_OBJECT_MAPPING.get(type)) != null) {
             //attempt to inject with the obj which have been pass by user manually.
@@ -218,7 +223,7 @@ public class EventBinder implements IEventBinder {
                 }
             }
             if (constructor == null)
-                throw new VIRuntimeException(StringFormatter.format(INSTACE_ERROR, field.toString(), clazz.getSimpleName()));
+                throw new VIRuntimeException(StringFormatter.format(INSTANCE_ERROR, field.toString(), clazz.getSimpleName()));
             try {
                 if (paramsLen == 0)
                     impl = constructor.newInstance();

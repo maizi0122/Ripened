@@ -81,9 +81,8 @@ public class AdapterViewActivity3 extends Activity implements AdapterView.OnItem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //you adapter class have no empty-params constructor,you should make instance manually and pass it like : inject(this, new MyAdapter("maizi"));
-        rapeField = new RapeField().inject(this, new CustomAdapter(list));
-
-    }
+        rapeField = new RapeField().inject(this, new CustomAdapter(list)); //if your Adapter class have no empty-param constructor,you should pass the instance in
+    }                                                                      //inject(Object... obj) manually,because we don't know what object in params to create instance...
 
     @Override
     @EventTarget(targets = {R.id.ac_sec_lv})

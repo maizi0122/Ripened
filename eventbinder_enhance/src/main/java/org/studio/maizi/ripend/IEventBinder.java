@@ -53,8 +53,9 @@ public interface IEventBinder extends IPlugin {
      * @param field      the field which is an instance of view current scanning.
      * @param resId      the resId of this view.
      * @param obj        may be it is current context, or it is a fragment of an activity.
+     * @param transfer   if obj is object of holder,transfer represent the object of current adapter.
      * @param annoRegist the object of RegistListener annotation.
      * @param objs       additional params, when your class of listener have no empty-parameter constructor, you should pass the listener object manually...
      */
-    void bindEvent(Field field, int resId, Object obj, RegistListener annoRegist, Object... objs);
+    void bindEvent(Field field, int resId, Object obj, Object transfer, RegistListener annoRegist, Object... objs);
 }

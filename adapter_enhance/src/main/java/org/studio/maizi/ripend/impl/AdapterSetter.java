@@ -61,7 +61,7 @@ public class AdapterSetter implements IAdapter {
     public void action(ActionParams params) {
         org.studio.maizi.ripend.anno.Adapter annoAdpt = null;
         if ((annoAdpt = params.getField().getAnnotation(org.studio.maizi.ripend.anno.Adapter.class)) != null) {
-            setAdapter(params.getTransfer(), params.getObj(), params.getField(), annoAdpt.value(), params.getListeners());
+            setAdapter(params.getTransfer() == null ? params.getObj() : params.getTransfer(), params.getObj(), params.getField(), annoAdpt.value(), params.getListeners());
         }
     }
 

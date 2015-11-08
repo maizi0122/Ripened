@@ -62,7 +62,8 @@ public class RapeField implements IRapeField {
 
     private VIContext viContext;
 
-    public RapeField() {}
+    public RapeField() {
+    }
 
     public RapeField(VIContext viContext) {
         this.viContext = viContext;
@@ -101,7 +102,7 @@ public class RapeField implements IRapeField {
         if (adapter == null || root == null || holder == null)
             throw new RuntimeException(NULL_ADAPTER_OR_ROOT_OR_HOLDER);
         Class<?> clazz = holder.getClass();
-        analysis(adapter, root, clazz, holder, listeners);
+        analysis(adapter, root, clazz, holder/*, adapter*/);
         return this;
     }
 
@@ -133,12 +134,16 @@ public class RapeField implements IRapeField {
         Field[] declaredFields = clazz.getDeclaredFields();
         if (type.equals(Type.Adapter))
             declaredFields = holder.getClass().getDeclaredFields();
+        Object transfer = null;
         for (Field field : declaredFields) {
             field.setAccessible(true);
             analysisPlugin(field);
             ResId anno = field.getAnnotation(ResId.class);
             int resId = 0;
-            Object transfer = obj;
+            if (type.equals(Type.Adapter)) {
+                if (transfer == null)
+                    transfer = obj;
+            }
             if (anno != null) {
                 resId = anno.value();
                 View viewById = null;

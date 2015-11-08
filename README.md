@@ -128,12 +128,12 @@ Module Ripend -- a lightly automatic view injection and smart listener、resourc
                       itemView = LayoutInflater.from(AdapterViewActivity1.this).inflate(R.layout.ac_sec_lv_item, parent, false);
                       holder = new MyHolder();
                       //-------------------------------------------------
-                      ripend.inject(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been made instance automatic,
-                      //-------------------------------------------------                         //because of annotation @Adapter(MyAdapter.class),we have helped you
-                      holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);       //setAdapter automatic with instance creating, if your Adapter class
-                      itemView.setTag(holder);                                                    //have no empty-param constructor,you should pass the instance in
-                  }                                                                               //inject(Object... obj) manually,because we don't know what object
-                  holder.ac_sec_lv_item_iv.setImageResource(R.mipmap.ic_launcher);                //in params to create instance...
+                      ripend.inject(this, itemView, holder);
+                      //-------------------------------------------------
+                      holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                      itemView.setTag(holder);
+                  }
+                  holder.ac_sec_lv_item_iv.setImageResource(R.mipmap.ic_launcher);
                   holder.ac_sec_lv_item_tv.setText(list.get(position));
                   return itemView;
               }
@@ -227,6 +227,7 @@ Module Ripend -- a lightly automatic view injection and smart listener、resourc
 
           @ResId(R.id.ac_main_bt1)
           @RegistListener(listeners = {MainActivity.class})
+          //auto animation resources binding.
           @Anim(animResId = R.anim.slide_in_left, duration = 1000, startOffset = 0, interpolator = android.R.interpolator.linear, repeatCount = 1, fillAfter = true)
           private Button ac_main_bt1;
 
@@ -269,15 +270,15 @@ Module Ripend -- a lightly automatic view injection and smart listener、resourc
 
               //--invoke auto view injection like this--      you can choose which one or more plugin to use.
               new Ripend().setVIContext(new VIContext().addPlugin(new ContentSetter(),
-                                                                         new EventBinder(),
-                                                                         new AnimationSetter()))
-                                 .inject(this,
-                                           new MyOnClickListener4("...fourth way...\nhello maizi"),
-                                           new CustomOnClickListener2("...sixth way...\nhello maizi"));
+                                                                  new EventBinder(),
+                                                                  new AnimationSetter()))
+                          .inject(this,
+                                  new MyOnClickListener4("...fourth way...\nhello maizi"),
+                                  new CustomOnClickListener2("...sixth way...\nhello maizi"));
 
               //------replace upon, you can also code like this:       new Ripend().inject(this,
-              //------because we will scan automatic, but we                                  new MyOnClickListener4("...fourth way...\nhello maizi"),
-              //------also support your custom                                                new CustomOnClickListener2("...sixth way...\nhello maizi"));
+              //------because we will scan automatic, but we                               new MyOnClickListener4("...fourth way...\nhello maizi"),
+              //------also support your custom                                             new CustomOnClickListener2("...sixth way...\nhello maizi"));
 
               ac_main_bt7.setOnClickListener(new View.OnClickListener() {
                   @Override
@@ -382,10 +383,11 @@ Module Ripend -- a lightly automatic view injection and smart listener、resourc
           @Override
           public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
               View root = inflater.inflate(R.layout.layout_fragment, container, false);
-              new Ripend().inject(this, root,
-                                           new MyOnClickListener4("fragment\n...fourth way...\nhello maizi"),
-                                           new CustomOnClickListener2("fragment\n...sixth way...\nhello maizi"));
-
+              //-------------------------------------------------
+              new Ripend().inject(this, root,new MyOnClickListener4("fragment\n...fourth way...\nhello maizi"),
+                                             new CustomOnClickListener2("fragment\n...sixth way...\nhello maizi"));
+              //-------------------------------------------------
+              //you also can bind by yourself.
               ac_main_frag1_bt7.setOnClickListener(new View.OnClickListener() {
                   @Override
                   public void onClick(View v) {
@@ -476,12 +478,8 @@ Module Ripend -- a lightly automatic view injection and smart listener、resourc
           protected void onCreate(Bundle savedInstanceState) {
               super.onCreate(savedInstanceState);
               //you adapter have no-params constructor,so if you config @Adapter(MyAdapter.class) at right place,we'll make instance automatic and inject it.
-              ripend = new Ripend().setVIContext(new VIContext().addPlugin(new ContentSetter(),
-                                                                                 new EventBinder(),
-                                                                                 new AdapterSetter(),
-                                                                                 new AnimationSetter()))
-                                         .inject(this);
-          }
+              ripend = new Ripend().inject(this);  //if your Adapter class have no empty-param constructor,you should pass the instance in
+          }                                        //inject(Object... obj) manually,because we don't know what object in params to create instance...
 
           @Override
           @EventTarget(targets = {R.id.ac_sec_lv})
@@ -520,12 +518,12 @@ Module Ripend -- a lightly automatic view injection and smart listener、resourc
                       itemView = LayoutInflater.from(AdapterViewActivity1.this).inflate(R.layout.ac_sec_lv_item, parent, false);
                       holder = new MyHolder();
                       //-------------------------------------------------
-                      ripend.inject(this, itemView, holder, this);//-----------------------attention last this,MyAdapter have been make instance auto,
-                      //-------------------------------------------------                         //because of annotation @Adapter(MyAdapter.class),we have helped you
-                      holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);       //setAdapter automatic with instance creating, if your Adapter class
-                      itemView.setTag(holder);                                                    //have no empty-param constructor,you should pass the instance in
-                  }                                                                               //inject(Object... obj) manually,because we don't know what object
-                  holder.ac_sec_lv_item_iv.setImageResource(R.mipmap.ic_launcher);                //in params to create instance...
+                      ripend.inject(this, itemView, holder);
+                      //-------------------------------------------------
+                      holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                      itemView.setTag(holder);
+                  }
+                  holder.ac_sec_lv_item_iv.setImageResource(R.mipmap.ic_launcher);
                   holder.ac_sec_lv_item_tv.setText(list.get(position));
                   return itemView;
               }
