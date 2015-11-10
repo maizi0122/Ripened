@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":resourcebinder_enhance" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" external.system.module.group="Ripened" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+<module external.linked.project.id=":ripened" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" external.system.module.group="Ripened" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
-        <option name="GRADLE_PROJECT_PATH" value=":resourcebinder_enhance" />
+        <option name="GRADLE_PROJECT_PATH" value=":ripened" />
       </configuration>
     </facet>
     <facet type="android" name="Android">
@@ -89,6 +89,5 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="ripened" exported="" />
   </component>
 </module>

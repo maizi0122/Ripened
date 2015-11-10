@@ -1,13 +1,13 @@
-# Ripend (the awn of wheat)
+# Ripened (the awn of wheat)
 The open-source project of Maizi-Studio
 
 <img src="http://img.daimg.com/uploads/allimg/120529/3-1205291052394N.jpg" style="width:247px; height:280px;margin-top:0px; "/>
 
-Module Ripend -- a lightly automatic view injection and smart listener、resources binding library of android(it is a beginning project...)
+Module Ripened -- a lightly automatic view injection and smart listener、resources binding library of android(it is a beginning project...)
 
-  this project's main module is Ripend, modules: adapter_enhance、contentview_enhance、eventbinder_enhance、resourcebinder_enhance
+  this project's main module is Ripened, modules: adapter_enhance、contentview_enhance、eventbinder_enhance、resourcebinder_enhance
 
-  are the plugin of Ripend, we are support free-choosing of composing, so you can add module with the function just you need.
+  are the plugin of Ripened, we are support free-choosing of composing, so you can add module with the function just you need.
 
   it can minify your apk, we also support your customize plugin with implementation of IPlugin interface...
 
@@ -22,16 +22,16 @@ Module Ripend -- a lightly automatic view injection and smart listener、resourc
   dependencies {
 
       //-----add library module like this only for view injection-----
-      compile project(':Ripend') //it's the base-common module of it's plugin.
+      compile project(':Ripened') //it's the base-common module of it's plugin.
 
       //-----add library module like this for view injection and content-view setting-----
-      compile project(':contentview_enhance') //it's an plugin of module Ripend with enhancing of content-view setting
+      compile project(':contentview_enhance') //it's an plugin of module Ripened with enhancing of content-view setting
 
       //-----add library module like this for view injection and adapter view setting-----
-      compile project(':adapter_enhance') //it's an plugin of module Ripend with enhancing of adapter setting
+      compile project(':adapter_enhance') //it's an plugin of module Ripened with enhancing of adapter setting
 
       //-----add library module like this for view injection and listener binding-----
-      compile project(':eventbinder_enhance') //it's an plugin of module Ripend with enhancing of listener binding
+      compile project(':eventbinder_enhance') //it's an plugin of module Ripened with enhancing of listener binding
 
       //-----seeing the demo for more detail...
 
@@ -52,7 +52,7 @@ Module Ripend -- a lightly automatic view injection and smart listener、resourc
 
               setContentView(R.layout.activity_main);
               //--invoke auto view injection like this--
-              new Ripend().inject(this);
+              new Ripened().inject(this);
               //why not static-method? it will be product by the bean-factory of maizi-studio open source project at soon.like spring...
           }
       }
@@ -66,7 +66,7 @@ Module Ripend -- a lightly automatic view injection and smart listener、resourc
           public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
                   View root = inflater.inflate(R.layout.layout_fragment_1, container, false);
                   //--invoke auto view injection like this-
-                  new Ripend().inject(this, root);
+                  new Ripened().inject(this, root);
                   //---------------------------------------
                   return root;
               }
@@ -87,14 +87,14 @@ Module Ripend -- a lightly automatic view injection and smart listener、resourc
           @Adapter(MyAdapter.class)
           private ListView ac_sec_lv;
 
-          private IRipend ripend;
+          private IRipened ripened;
 
           @Override
           protected void onCreate(Bundle savedInstanceState) {
               super.onCreate(savedInstanceState);
 
               //you adapter have no-params constructor,so if you config @Adapter(MyAdapter.class) at right place,we'll make instance automatic and inject it.
-              ripend = new Ripend().inject(this);
+              ripened = new Ripened().inject(this);
 
           }
 
@@ -128,7 +128,7 @@ Module Ripend -- a lightly automatic view injection and smart listener、resourc
                       itemView = LayoutInflater.from(AdapterViewActivity1.this).inflate(R.layout.ac_sec_lv_item, parent, false);
                       holder = new MyHolder();
                       //-------------------------------------------------
-                      ripend.inject(this, itemView, holder);
+                      ripened.inject(this, itemView, holder);
                       //-------------------------------------------------
                       holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                       itemView.setTag(holder);
@@ -269,14 +269,14 @@ Module Ripend -- a lightly automatic view injection and smart listener、resourc
               super.onCreate(savedInstanceState);
 
               //--invoke auto view injection like this--      you can choose which one or more plugin to use.
-              new Ripend().setVIContext(new VIContext().addPlugin(new ContentSetter(),
+              new Ripened().setVIContext(new VIContext().addPlugin(new ContentSetter(),
                                                                   new EventBinder(),
                                                                   new AnimationSetter()))
                           .inject(this,
                                   new MyOnClickListener4("...fourth way...\nhello maizi"),
                                   new CustomOnClickListener2("...sixth way...\nhello maizi"));
 
-              //------replace upon, you can also code like this:       new Ripend().inject(this,
+              //------replace upon, you can also code like this:       new Ripened().inject(this,
               //------because we will scan automatic, but we                               new MyOnClickListener4("...fourth way...\nhello maizi"),
               //------also support your custom                                             new CustomOnClickListener2("...sixth way...\nhello maizi"));
 
@@ -384,7 +384,7 @@ Module Ripend -- a lightly automatic view injection and smart listener、resourc
           public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
               View root = inflater.inflate(R.layout.layout_fragment, container, false);
               //-------------------------------------------------
-              new Ripend().inject(this, root,new MyOnClickListener4("fragment\n...fourth way...\nhello maizi"),
+              new Ripened().inject(this, root,new MyOnClickListener4("fragment\n...fourth way...\nhello maizi"),
                                              new CustomOnClickListener2("fragment\n...sixth way...\nhello maizi"));
               //-------------------------------------------------
               //you also can bind by yourself.
@@ -472,13 +472,13 @@ Module Ripend -- a lightly automatic view injection and smart listener、resourc
           @Anim(duration = 1000,interpolator = android.R.interpolator.bounce)
           private RelativeLayout ac_ava1_root;
 
-          private IRipend ripend;
+          private IRipened ripened;
 
           @Override
           protected void onCreate(Bundle savedInstanceState) {
               super.onCreate(savedInstanceState);
               //you adapter have no-params constructor,so if you config @Adapter(MyAdapter.class) at right place,we'll make instance automatic and inject it.
-              ripend = new Ripend().inject(this);  //if your Adapter class have no empty-param constructor,you should pass the instance in
+              ripened = new Ripened().inject(this);  //if your Adapter class have no empty-param constructor,you should pass the instance in
           }                                        //inject(Object... obj) manually,because we don't know what object in params to create instance...
 
           @Override
@@ -518,7 +518,7 @@ Module Ripend -- a lightly automatic view injection and smart listener、resourc
                       itemView = LayoutInflater.from(AdapterViewActivity1.this).inflate(R.layout.ac_sec_lv_item, parent, false);
                       holder = new MyHolder();
                       //-------------------------------------------------
-                      ripend.inject(this, itemView, holder);
+                      ripened.inject(this, itemView, holder);
                       //-------------------------------------------------
                       holder.ac_sec_lv_item_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
                       itemView.setTag(holder);

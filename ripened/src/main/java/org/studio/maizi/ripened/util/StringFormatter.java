@@ -25,25 +25,26 @@
  *  Any question contacting with email below:
  *  maizi0122@gmail.com
  */
-apply plugin: 'com.android.library'
-android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
 
-    defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+package org.studio.maizi.ripened.util;
 
-dependencies {
-    compile project(':ripened')
+import java.util.Formatter;
+
+/**
+ * a util for String formatting.<br />
+ * Powered by Maizi-Studio.<br />
+ * Design by maizi.<br />
+ * Created on 15-11-5.
+ */
+public class StringFormatter {
+
+    /**
+     * format the string.
+     * @param str the string which will be format
+     * @param obj the object which match each place with it's turn.
+     * @return the string formatted
+     */
+    public static String format(String str, Object... obj) {
+        return new Formatter().format(str, obj).toString();
+    }
 }

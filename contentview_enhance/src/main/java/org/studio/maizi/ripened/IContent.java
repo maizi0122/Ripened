@@ -25,25 +25,28 @@
  *  Any question contacting with email below:
  *  maizi0122@gmail.com
  */
-apply plugin: 'com.android.library'
-android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
 
-    defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+package org.studio.maizi.ripened;
 
-dependencies {
-    compile project(':ripened')
+import android.app.Activity;
+
+/**
+ * the plugin of contentView setting.<br />
+ * Powered by Maizi-Studio.<br />
+ * Design by maizi.<br />
+ * Created on 15-11-5.
+ */
+public interface IContent extends IPlugin {
+
+    /**
+     * the name of this plugin.
+     */
+    String NAME = "Content";
+
+    /**
+     * set the content view.
+     *
+     * @param layoutResId the  layout resource id.
+     */
+    void setContentView(Activity context, int layoutResId);
 }
