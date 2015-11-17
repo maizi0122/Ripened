@@ -21,7 +21,7 @@ public interface IRipened {
      * @param viContext the context of viewInjection
      * @return the current obj
      */
-    Ripened setVIContext(VIContext viContext);
+    IRipened setVIContext(VIContext viContext);
 
     /**
      * obtain the context of RapeField.

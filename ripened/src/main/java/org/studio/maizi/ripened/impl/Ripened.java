@@ -69,7 +69,7 @@ public class Ripened implements IRipened {
         this.viContext = viContext;
     }
 
-    public Ripened setVIContext(VIContext viContext) {
+    public IRipened setVIContext(VIContext viContext) {
         this.viContext = viContext;
         return this;
     }
