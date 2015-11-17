@@ -46,7 +46,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 /**
- * an implementation of IViewInjection.<br />
+ * an implementation of IRipened.<br />
  * Created by maizi on 13-10-8.<br />
  * <p>auto view injection
  */
