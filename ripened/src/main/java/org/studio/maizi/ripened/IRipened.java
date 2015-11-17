@@ -5,8 +5,6 @@ import android.app.Fragment;
 import android.view.View;
 import android.widget.Adapter;
 
-import org.studio.maizi.ripened.impl.Ripened;
-
 /**
  * the interface of auto view injection.<br />
  * Powered by Maizi-Studio.<br />
