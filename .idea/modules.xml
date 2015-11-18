@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Ripend.iml" filepath="$PROJECT_DIR$/Ripend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ripened.iml" filepath="$PROJECT_DIR$/Ripened.iml" />
       <module fileurl="file://$PROJECT_DIR$/adapter_enhance/adapter_enhance.iml" filepath="$PROJECT_DIR$/adapter_enhance/adapter_enhance.iml" />
       <module fileurl="file://$PROJECT_DIR$/contentview_enhance/contentview_enhance.iml" filepath="$PROJECT_DIR$/contentview_enhance/contentview_enhance.iml" />
       <module fileurl="file://$PROJECT_DIR$/eventbinder_enhance/eventbinder_enhance.iml" filepath="$PROJECT_DIR$/eventbinder_enhance/eventbinder_enhance.iml" />
       <module fileurl="file://$PROJECT_DIR$/resourcebinder_enhance/resourcebinder_enhance.iml" filepath="$PROJECT_DIR$/resourcebinder_enhance/resourcebinder_enhance.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ripend/ripend.iml" filepath="$PROJECT_DIR$/ripend/ripend.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ripend_demo/ripend_demo.iml" filepath="$PROJECT_DIR$/ripend_demo/ripend_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ripened/ripened.iml" filepath="$PROJECT_DIR$/ripened/ripened.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ripened_demo/ripened_demo.iml" filepath="$PROJECT_DIR$/ripened_demo/ripened_demo.iml" />
     </modules>
   </component>
 </project>
