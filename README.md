@@ -11,8 +11,6 @@ Module Ripened -- a lightly automatic view injection and smart listener、resour
 
   it can minify your apk, we also support your customize plugin with implementation of IPlugin interface...
 
-  we do not dependent any other third-party library except android.jar, so you can proguard it in any way...
-
   1.download the source-bundle at the right of the webpage.
 
   2.import this library into your gradle project.
