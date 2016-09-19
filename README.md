@@ -549,4 +549,5 @@ Module Ripened -- a light-weight automatic view injection and smart listener、r
       }
 
   5.enjoy your coding-time...
-    If you want to know more about me, you can go to my blog [ <a herf="https://maizi0122.github.io/">https://maizi0122.github.io/</a> ], thanks for your attention.
+    <br/>If you want to know more about me, you can go to my blog [ <a herf="https://maizi0122.github.io/">https://maizi0122.github.io/</a> ].
+    <br/>Thanks for your attention.
