@@ -1,9 +1,7 @@
 # Ripened (the awn of wheat)
 The open-source project of Maizi-Studio
 
-<img src="http://img.daimg.com/uploads/allimg/120529/3-1205291052394N.jpg" style="width:247px; height:280px;margin-top:0px; "/>
-
-Module Ripened -- a lightly automatic view injection and smart listener、resources binding library of android(it is a beginning project...)
+Module Ripened -- a light-weight automatic view injection and smart listener、resources binding library for android(it is just a beginning...)
 
   this project's main module is Ripened, modules: adapter_enhance、contentview_enhance、eventbinder_enhance、resourcebinder_enhance
 
